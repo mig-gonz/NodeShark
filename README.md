@@ -22,15 +22,15 @@ NodeShark is a web application created to serve as an online destination for gym
 
 The following API endpoints are available for interacting with the application:
 
-| Table Name       | Columns                                                                                                              | Description                                                                                                            |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Styles           | ID (Integer), Name (String), Gender (String)                                                                         | Stores different styles with their unique IDs, names, and genders.                                                     |
-| Users            | ID (Integer), Type                                                                                                   | Stores user information with their unique IDs and types.                                                               |
-| Wishlisted_items | ID (Integer), Sku_ID (Type), User_ID (Type)                                                                          | Tracks wishlisted items with their unique IDs, SKU IDs, and user IDs.                                                  |
-| Brands           | ID (Integer), Name (Type)                                                                                            | Contains brand details with unique IDs and names.                                                                      |
-| Products         | ID (Integer), Name (String), Description (String), Style_ID (Integer), Price (Integer), Brand (String), Image (Type) | Stores product information with unique IDs, names, descriptions, associated style ID, price, brand, and image details. |
-| Skus             | ID (Integer), Product_ID (Type), Color (Type), Size (Type)                                                           | Tracks SKU information with unique IDs, associated product IDs, color, and size.                                       |
-| Images           | ID (Type), Product_ID (Type), Url (String)                                                                           | Stores image details with their unique IDs, associated product IDs, and URLs.                                          |
+| Table Name       | Columns                                                                                                                | Description                                                                                                            |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Styles           | ID (Integer), Name (String), Gender (String)                                                                           | Stores different styles with their unique IDs, names, and genders.                                                     |
+| Users            | ID (Integer), Type                                                                                                     | Stores user information with their unique IDs and types.                                                               |
+| Wishlisted_items | ID (Integer), Sku_ID (Integer), User_ID (Integer)                                                                      | Tracks wishlisted items with their unique IDs, SKU IDs, and user IDs.                                                  |
+| Brands           | ID (Integer), Name (String)                                                                                            | Contains brand details with unique IDs and names.                                                                      |
+| Products         | ID (Integer), Name (String), Description (String), Style_ID (Integer), Price (Integer), Brand (String), Image (String) | Stores product information with unique IDs, names, descriptions, associated style ID, price, brand, and image details. |
+| Skus             | ID (Integer), Product_ID (Integer), Color (Type), Size (Type)                                                          | Tracks SKU information with unique IDs, associated product IDs, color, and size.                                       |
+| Images           | ID (Integer), Product_ID (Type), Url (String)                                                                          | Stores image details with their unique IDs, associated product IDs, and URLs.                                          |
 
 ## Setup
 
