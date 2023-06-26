@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Products = require('../models/products');
+const Skus = require('../models/skus');
 
 router.get('/', async (req, res) => {
   try {
-    const products = await Products.findAll();
+    const foundProducts = await Products.findAll();
 
     res.status(200).json({
-      'Found Products': products,
+      'Found Products': foundProducts,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -18,18 +19,18 @@ router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const product = await Products.findOne({
+    const foundProduct = await Products.findOne({
       where: { id },
     });
 
-    if (!product) {
+    if (!foundProduct) {
       return res.status(404).json({
         error: 'No product with this id found',
       });
     }
 
     res.status(200).json({
-      'Found Product': product,
+      'Found Product': foundProduct,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -40,7 +41,7 @@ router.post('/', async (req, res) => {
   try {
     const { name, description, price, brand, image } = req.body;
 
-    const product = await Products.create({
+    const createdProduct = await Products.create({
       name,
       description,
       price,
@@ -48,7 +49,7 @@ router.post('/', async (req, res) => {
       image,
     });
 
-    res.status(200).json({ 'Created product': product });
+    res.status(200).json({ 'Created product': createdProduct });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -62,15 +63,15 @@ async function updateProduct(req, res) {
     const { id } = req.params;
     const { name, description, price, brand, image } = req.body;
 
-    const product = await Products.findOne({ where: { id } });
+    const updatedProduct = await Products.findOne({ where: { id } });
 
-    if (!product) {
+    if (!updatedProduct) {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    await product.update({ name, description, price, brand, image });
+    await updatedProduct.update({ name, description, price, brand, image });
 
-    res.status(201).json({ 'Updated product': product });
+    res.status(201).json({ 'Updated product': updatedProduct });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
