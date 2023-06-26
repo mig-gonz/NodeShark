@@ -28,6 +28,7 @@ router.get('/:productId', async (req, res) => {
     const foundProduct = await Product.findByPk(productId, {
       include: {
         model: Sku,
+        attributes: ['color'],
       },
     });
 
@@ -38,7 +39,7 @@ router.get('/:productId', async (req, res) => {
     }
 
     res.status(200).json({
-      'Found Product with sku': foundProduct,
+      'Found Product': foundProduct,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
