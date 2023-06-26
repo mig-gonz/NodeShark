@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Products = require('../models/products');
-const Skus = require('../models/skus');
+const Product = require('../models/products');
 
 router.get('/', async (req, res) => {
   try {
-    const foundProducts = await Products.findAll();
+    const foundProducts = await Product.findAll();
 
     res.status(200).json({
-      'Found Products': foundProducts,
+      'Found Product': foundProducts,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -19,7 +18,7 @@ router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const foundProduct = await Products.findOne({
+    const foundProduct = await Product.findOne({
       where: { id },
     });
 
@@ -41,7 +40,7 @@ router.post('/', async (req, res) => {
   try {
     const { name, description, price, brand, image } = req.body;
 
-    const createdProduct = await Products.create({
+    const createdProduct = await Product.create({
       name,
       description,
       price,
@@ -63,7 +62,7 @@ async function updateProduct(req, res) {
     const { id } = req.params;
     const { name, description, price, brand, image } = req.body;
 
-    const updatedProduct = await Products.findOne({ where: { id } });
+    const updatedProduct = await Product.findOne({ where: { id } });
 
     if (!updatedProduct) {
       return res.status(404).json({ error: 'Product not found' });
@@ -80,7 +79,7 @@ async function updateProduct(req, res) {
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Products.findOne({ where: { id } });
+    const product = await Product.findOne({ where: { id } });
 
     if (!product) {
       return res
@@ -88,7 +87,7 @@ router.delete('/:id', async (req, res) => {
         .json({ error: 'Product not found. Could not delete' });
     }
 
-    await Products.destroy({ where: { id } });
+    await Product.destroy({ where: { id } });
 
     res.status(200).json({ 'Deleted product': id });
   } catch (error) {
