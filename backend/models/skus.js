@@ -13,7 +13,6 @@ const Sku = sequelize.define(
     },
     productId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: 'products',
         key: 'id',
@@ -33,7 +32,7 @@ const Sku = sequelize.define(
   }
 );
 
-sequelize.sync();
+// sequelize.sync();
 
 Product.hasMany(Sku, { foreignKey: 'productId' });
 Sku.belongsTo(Product, { foreignKey: 'productId' });

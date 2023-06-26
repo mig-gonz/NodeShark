@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     const foundProducts = await Product.findAll();
 
     res.status(200).json({
-      'Found Product': foundProducts,
+      'Found Products': foundProducts,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
