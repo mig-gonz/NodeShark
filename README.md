@@ -9,7 +9,7 @@ NodeShark is a web application created to serve as an online destination for gym
 - ProductShowCase
 - Footer
 - Hero/banner
-- ?Search
+- ? Search
 - Products
 - ProductViewPage
 - ProductDetails
