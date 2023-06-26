@@ -2,10 +2,10 @@
 
 NodeShark is a web application created to serve as an online destination for gym apparel. Explore an array of exciting features, including hot new deals, our latest addition to our collection, the ability to curate a personalized wishlist, and much more.
 
-## components
+## Components
 
 - Home
-- navbar
+- Navbar
 - ProductShowCase
 - Footer
 - Hero/banner
