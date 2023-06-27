@@ -7,6 +7,7 @@ const Sku = require('../models/skus');
 // Find all products
 router.get('/', async (req, res) => {
   try {
+    // trys to find all products with their skus
     const products = await Product.findAll({
       include: {
         model: Sku,
@@ -14,9 +15,8 @@ router.get('/', async (req, res) => {
       },
       attributes: ['id', 'name', 'description', 'price', 'brand', 'image'],
     });
-
     res.status(200).json({
-      'Found Products': products,
+      'All found products': products,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -28,6 +28,7 @@ router.get('/:productId', async (req, res) => {
   try {
     const { productId } = req.params;
 
+    // tries to find a product with the given id including its skus
     const foundProduct = await Product.findByPk(productId, {
       include: {
         model: Sku,
@@ -54,6 +55,7 @@ router.post('/', async (req, res) => {
   try {
     const { name, description, price, brand, image, skus } = req.body;
 
+    // tries to create a product with the given parameters
     const newProduct = await Product.create({
       name,
       description,
@@ -62,6 +64,9 @@ router.post('/', async (req, res) => {
       image,
     });
 
+    /* checks if the `skus` array is not empty.
+
+    If it is not empty, it creates a new SKU for each item in the `skus` array. */
     if (skus && skus.length > 0) {
       const createdSkus = [];
 
@@ -79,6 +84,7 @@ router.post('/', async (req, res) => {
         }
       }
 
+      // adds the created skus to the new product object
       newProduct.sku = createdSkus;
     }
 
@@ -94,12 +100,14 @@ router.put('/:productId', async (req, res) => {
     const { productId } = req.params;
     const { name, description, price, brand, image, skus } = req.body;
 
+    // tries to find a product with the given id
     const foundProduct = await Product.findByPk(productId, {
       include: {
         model: Sku,
       },
     });
 
+    // tries to update a product with the given parameters
     const updatedProduct = await foundProduct.update({
       name,
       description,
@@ -115,6 +123,7 @@ router.put('/:productId', async (req, res) => {
         const { color, sizes } = sku;
       }
 
+      // adds the updated skus to the updated product object
       updatedProduct.skus = updatedSkus;
     }
 
@@ -187,6 +196,7 @@ router.delete('/:productId', async (req, res) => {
 
 // Bulk delete products
 router.delete('/bulkdelete', async (req, res) => {
+  // tries to delete all products after restarting the sequence of ids to 1
   await sequelize.query('ALTER SEQUENCE products_id_seq RESTART WITH 1');
   await Product.destroy({ where: {} });
 
