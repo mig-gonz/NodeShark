@@ -1,98 +1,311 @@
 const express = require('express');
 const router = express.Router();
+const { sequelize } = require('../database');
 const Product = require('../models/products');
+const Style = require('../models/styles');
+const Sku = require('../models/skus');
+const Brand = require('../models/brands');
+const Image = require('../models/images');
 
+// Find all products
 router.get('/', async (req, res) => {
   try {
-    const foundProducts = await Product.findAll();
+    const foundProducts = await Product.findAll({
+      include: [
+        {
+          model: Sku,
+          attributes: ['color', 'size'],
+        },
+        {
+          model: Brand,
+          attributes: ['name'],
+        },
+        {
+          model: Image,
+          attributes: ['url'],
+        },
+        {
+          model: Style,
+          attributes: ['name', 'gender'],
+        },
+      ],
+      attributes: ['id', 'name', 'description', 'price'],
+    });
 
     res.status(200).json({
-      'Found Products': foundProducts,
+      'All found products!': foundProducts,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-router.get('/:id', async (req, res) => {
+// Find a product by it's ID
+router.get('/:productId', async (req, res) => {
   try {
-    const { id } = req.params;
+    const { productId } = req.params;
 
-    const foundProduct = await Product.findOne({
-      where: { id },
+    const foundProduct = await Product.findByPk(productId, {
+      include: [
+        {
+          model: Sku,
+          attributes: ['color', 'size'],
+        },
+        {
+          model: Brand,
+          attributes: ['name'],
+        },
+        {
+          model: Image,
+          attributes: ['url'],
+        },
+        {
+          model: Style,
+          attributes: ['name', 'gender'],
+        },
+      ],
+      attributes: ['id', 'name', 'description', 'price'],
     });
 
-    if (!foundProduct) {
-      return res.status(404).json({
-        error: 'No product with this id found',
-      });
-    }
-
     res.status(200).json({
-      'Found Product': foundProduct,
+      'Found product': foundProduct,
     });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
+// Find a product by it's brand
+router.get('/brands/:brandName', async (req, res) => {
+  try {
+    const { brandName } = req.params;
+
+    const foundProducts = await Product.findAll({
+      where: {},
+      include: [
+        {
+          model: Sku,
+          attributes: ['color', 'size'],
+        },
+        {
+          model: Brand,
+          where: { name: brandName },
+          attributes: ['name'],
+        },
+        {
+          model: Image,
+          attributes: ['url'],
+        },
+        {
+          model: Style,
+          attributes: ['name', 'gender'],
+        },
+      ],
+      attributes: ['id', 'name', 'description', 'price'],
+    });
+
+    res.status(200).json({
+      'Found your brand products': foundProducts,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Create a product from scratch
 router.post('/', async (req, res) => {
   try {
-    const { name, description, price, brand, image } = req.body;
+    const { name, description, price, brand, image, style, skus } = req.body;
 
-    const createdProduct = await Product.create({
+    // Create a new brand
+    const newBrand = await Brand.create({
+      name: brand.name,
+    });
+
+    // Create a new style
+    const newStyle = await Style.create({
+      name: style.name,
+      gender: style.gender,
+    });
+
+    // Create a new product
+    const newProduct = await Product.create({
       name,
       description,
       price,
-      brand,
-      image,
+      brandId: newBrand.id,
+      styleId: newStyle.id,
     });
 
-    res.status(200).json({ 'Created product': createdProduct });
+    // Create a new image
+    const newImage = await Image.create({
+      url: image.url,
+      productId: newProduct.id,
+    });
+
+    // Update the product with the image ID
+    newProduct.imageId = newImage.id;
+    await newProduct.save();
+
+    if (skus && skus.length > 0) {
+      const createdSkus = [];
+
+      for (const sku of skus) {
+        const { color, sizes } = sku;
+
+        for (const size of sizes) {
+          // Create a new sku
+          const createdSku = await Sku.create({
+            productId: newProduct.id,
+            color,
+            size,
+          });
+
+          createdSkus.push(createdSku);
+        }
+      }
+
+      // adds the created skus to the new product object
+      newProduct.sku = createdSkus;
+    }
+
+    res.status(200).json({
+      'New product created!': newProduct,
+    });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-router.patch('/:id', updateProduct);
-router.put('/:id', updateProduct);
-
-async function updateProduct(req, res) {
+// Create a new product by an existing brand
+router.post('/brands/:brandName', async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name, description, price, brand, image } = req.body;
+    const { brandName } = req.params;
+    const { name, description, price, image, style, skus } = req.body;
 
-    const updatedProduct = await Product.findOne({ where: { id } });
+    // Find the brand by name
+    const brand = await Brand.findOne({ where: { name: brandName } });
 
-    if (!updatedProduct) {
+    if (!brand) {
+      return res.status(404).json({ error: 'Brand not found' });
+    }
+
+    // Create a new style
+    const newStyle = await Style.create({
+      name: style.name,
+      gender: style.gender,
+    });
+
+    // Create a new product
+    const newProduct = await Product.create({
+      name,
+      description,
+      price,
+      brandId: brand.id,
+      styleId: newStyle.id,
+    });
+
+    // Create a new image
+    const newImage = await Image.create({
+      url: image.url,
+      productId: newProduct.id,
+    });
+
+    // Update the product with the image ID
+    newProduct.imageId = newImage.id;
+    await newProduct.save();
+
+    if (skus && skus.length > 0) {
+      const createdSkus = [];
+
+      for (const sku of skus) {
+        const { color, sizes } = sku;
+
+        for (const size of sizes) {
+          // Create a new sku
+          const createdSku = await Sku.create({
+            productId: newProduct.id,
+            color,
+            size,
+          });
+
+          createdSkus.push(createdSku);
+        }
+      }
+
+      // adds the created skus to the new product object
+      newProduct.sku = createdSkus;
+    }
+
+    res.status(200).json({
+      'New product created!': newProduct,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update a product
+router.patch('/:productId', UpdateProduct);
+router.put('/:productId', UpdateProduct);
+
+async function UpdateProduct(req, res) {
+  try {
+    const { productId } = req.params;
+    const { name, description, price } = req.body;
+
+    const foundProduct = await Product.findByPk(productId);
+
+    if (!foundProduct) {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    await updatedProduct.update({ name, description, price, brand, image });
+    const updatedProduct = await foundProduct.update({
+      name,
+      description,
+      price,
+    });
 
-    res.status(201).json({ 'Updated product': updatedProduct });
+    res.status(200).json({
+      'Updated product': updatedProduct,
+    });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
 
-router.delete('/:id', async (req, res) => {
+// Delete a product
+router.delete('/:productId', async (req, res) => {
   try {
-    const { id } = req.params;
-    const product = await Product.findOne({ where: { id } });
+    const { productId } = req.params;
+    const foundProduct = await Product.findByPk(productId);
 
-    if (!product) {
-      return res
-        .status(404)
-        .json({ error: 'Product not found. Could not delete' });
-    }
+    await foundProduct.destroy();
 
-    await Product.destroy({ where: { id } });
-
-    res.status(200).json({ 'Deleted product': id });
+    res.status(200).json({
+      'Deleted product': foundProduct,
+    });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// Bulk delete DB information
+// Commenting out so the route does not work unless i want it to.
+// router.delete('delete/bulkdelete', async (req, res) => {
+//   // tries to delete all products after restarting the sequence of ids to 1
+//   await sequelize.query('ALTER SEQUENCE products_id_seq RESTART WITH 1');
+//   await sequelize.query('ALTER SEQUENCE styles_id_seq RESTART WITH 1');
+//   await sequelize.query('ALTER SEQUENCE brands_id_seq RESTART WITH 1');
+//   await sequelize.query('ALTER SEQUENCE images_id_seq RESTART WITH 1');
+//   await Product.destroy({ where: {} });
+//   await Style.destroy({ where: {} });
+//   await Brand.destroy({ where: {} });
+//   await Image.destroy({ where: {} });
+
+//   res.status(200).json({
+//     'Deleted all products': true,
+//   });
+// });
 
 module.exports = router;

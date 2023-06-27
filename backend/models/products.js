@@ -22,13 +22,26 @@ const Product = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    brand: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    brandId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'brands',
+        key: 'id',
+      },
     },
-    image: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+    imageId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'images',
+        key: 'id',
+      },
+    },
+    styleId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'styles',
+        key: 'id',
+      },
     },
   },
   {
