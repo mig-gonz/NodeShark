@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 const Product = require('../models/products');
 
 const Sku = sequelize.define(
-  'skus',
+  'sku',
   {
     id: {
       type: DataTypes.INTEGER,

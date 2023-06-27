@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const products = await Product.findAll({
       include: {
         model: Sku,
-        attributes: ['color'],
+        attributes: ['color', 'size'],
       },
       attributes: ['id', 'name', 'description', 'price', 'brand', 'image'],
     });
@@ -75,7 +75,7 @@ router.post('/', async (req, res) => {
         }
       }
 
-      newProduct.skus = createdSkus;
+      newProduct.sku = createdSkus;
     }
 
     res.status(200).json({ 'New product created': newProduct });
