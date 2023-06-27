@@ -19,7 +19,7 @@ router.get('/', getAllProducts);
 // Find a product by it's ID
 router.get('/:productId', getProductById);
 
-// Find a product by it's brand
+// Find all of the brands products
 router.get('/brands/:brandName', getBrandProducts);
 
 // Create a product from scratch
@@ -37,6 +37,6 @@ router.delete('/:productId', deleteProduct);
 
 // Bulk delete DB information
 // Commenting out so the route does not work unless i want it to.
-router.delete('delete/bulkdelete', deleteDataBaseData);
+// router.delete('delete/bulkdelete', deleteDataBaseData);
 
 module.exports = router;
