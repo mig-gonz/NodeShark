@@ -1,14 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const { sequelize } = require('../database');
-const Product = require('../models/products');
-const Style = require('../models/styles');
-const Sku = require('../models/skus');
-const Brand = require('../models/brands');
-const Image = require('../models/images');
+const Product = require('../../models/products');
+const Sku = require('../../models/skus');
+const Brand = require('../../models/brands');
+const Image = require('../../models/images');
+const Style = require('../../models/styles');
 
-// Find all products
-router.get('/', async (req, res) => {
+async function getAllProducts(req, res) {
   try {
     const foundProducts = await Product.findAll({
       include: [
@@ -38,10 +34,9 @@ router.get('/', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-});
+}
 
-// Find a product by it's ID
-router.get('/:productId', async (req, res) => {
+async function getProductById(req, res) {
   try {
     const { productId } = req.params;
 
@@ -73,10 +68,9 @@ router.get('/:productId', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-});
+}
 
-// Find a product by it's brand
-router.get('/brands/:brandName', async (req, res) => {
+async function getBrandProducts(req, res) {
   try {
     const { brandName } = req.params;
 
@@ -110,10 +104,9 @@ router.get('/brands/:brandName', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-});
+}
 
-// Create a product from scratch
-router.post('/', async (req, res) => {
+async function createProduct(req, res) {
   try {
     const { name, description, price, brand, image, style, skus } = req.body;
 
@@ -175,10 +168,9 @@ router.post('/', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-});
+}
 
-// Create a new product by an existing brand
-router.post('/brands/:brandName', async (req, res) => {
+async function createBrandProduct(req, res) {
   try {
     const { brandName } = req.params;
     const { name, description, price, image, style, skus } = req.body;
@@ -243,13 +235,9 @@ router.post('/brands/:brandName', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-});
+}
 
-// Update a product
-router.patch('/:productId', UpdateProduct);
-router.put('/:productId', UpdateProduct);
-
-async function UpdateProduct(req, res) {
+async function updateProduct(req, res) {
   try {
     const { productId } = req.params;
     const { name, description, price } = req.body;
@@ -274,8 +262,7 @@ async function UpdateProduct(req, res) {
   }
 }
 
-// Delete a product
-router.delete('/:productId', async (req, res) => {
+async function deleteProduct(req, res) {
   try {
     const { productId } = req.params;
     const foundProduct = await Product.findByPk(productId);
@@ -288,24 +275,30 @@ router.delete('/:productId', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-});
+}
 
-// Bulk delete DB information
-// Commenting out so the route does not work unless i want it to.
-// router.delete('delete/bulkdelete', async (req, res) => {
-//   // tries to delete all products after restarting the sequence of ids to 1
-//   await sequelize.query('ALTER SEQUENCE products_id_seq RESTART WITH 1');
-//   await sequelize.query('ALTER SEQUENCE styles_id_seq RESTART WITH 1');
-//   await sequelize.query('ALTER SEQUENCE brands_id_seq RESTART WITH 1');
-//   await sequelize.query('ALTER SEQUENCE images_id_seq RESTART WITH 1');
-//   await Product.destroy({ where: {} });
-//   await Style.destroy({ where: {} });
-//   await Brand.destroy({ where: {} });
-//   await Image.destroy({ where: {} });
+async function deleteDataBaseData(req, res) {
+  await sequelize.query('ALTER SEQUENCE products_id_seq RESTART WITH 1');
+  await sequelize.query('ALTER SEQUENCE styles_id_seq RESTART WITH 1');
+  await sequelize.query('ALTER SEQUENCE brands_id_seq RESTART WITH 1');
+  await sequelize.query('ALTER SEQUENCE images_id_seq RESTART WITH 1');
+  await Product.destroy({ where: {} });
+  await Style.destroy({ where: {} });
+  await Brand.destroy({ where: {} });
+  await Image.destroy({ where: {} });
 
-//   res.status(200).json({
-//     'Deleted all products': true,
-//   });
-// });
+  res.status(200).json({
+    'Deleted all products': true,
+  });
+}
 
-module.exports = router;
+module.exports = {
+  getAllProducts,
+  getProductById,
+  getBrandProducts,
+  createProduct,
+  createBrandProduct,
+  updateProduct,
+  deleteProduct,
+  deleteDataBaseData,
+};
