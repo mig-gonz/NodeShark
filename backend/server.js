@@ -2,7 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 
 const { connect, sequelize } = require('./database');
-const productRoutes = require('./productRoutes');
+const productRoutes = require('./routes/products');
 
 const app = express();
 app.use(express.json());

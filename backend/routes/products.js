@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { sequelize } = require('./database');
+const { sequelize } = require('../database');
 
 const {
   getAllProducts,
@@ -11,7 +11,7 @@ const {
   updateProduct,
   deleteProduct,
   deleteDataBaseData,
-} = require('./handlers/products');
+} = require('../handlers/products');
 
 // Find all products
 router.get('/', getAllProducts);
