@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
   }
 );
 
-const connect = async () => {
+const connectToDB = async () => {
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
@@ -24,5 +24,5 @@ const connect = async () => {
 
 module.exports = {
   sequelize,
-  connect,
+  connectToDB,
 };
