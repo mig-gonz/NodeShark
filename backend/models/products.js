@@ -1,8 +1,8 @@
-const { sequelize } = require('../database');
-const { DataTypes } = require('sequelize');
+const { sequelize } = require("../database");
+const { DataTypes } = require("sequelize");
 
 const Product = sequelize.define(
-  'products',
+  "products",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -25,22 +25,22 @@ const Product = sequelize.define(
     brandId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'brands',
-        key: 'id',
+        model: "brands",
+        key: "id",
       },
     },
     imageId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'images',
-        key: 'id',
+        model: "images",
+        key: "id",
       },
     },
     styleId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'styles',
-        key: 'id',
+        model: "styles",
+        key: "id",
       },
     },
   },

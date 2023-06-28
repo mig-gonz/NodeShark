@@ -1,9 +1,9 @@
-const { sequelize } = require('../database');
-const { DataTypes } = require('sequelize');
-const Product = require('./products');
+const { sequelize } = require("../database");
+const { DataTypes } = require("sequelize");
+const Product = require("./products");
 
 const Styles = sequelize.define(
-  'styles',
+  "styles",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -27,7 +27,7 @@ const Styles = sequelize.define(
 
 // sequelize.sync();
 
-Styles.hasMany(Product, { foreignKey: 'styleId' });
-Product.belongsTo(Styles, { foreignKey: 'styleId' });
+Styles.hasMany(Product, { foreignKey: "styleId" });
+Product.belongsTo(Styles, { foreignKey: "styleId" });
 
 module.exports = Styles;

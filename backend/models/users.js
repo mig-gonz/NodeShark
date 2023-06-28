@@ -1,9 +1,8 @@
 const { sequelize } = require("../database");
 const { DataTypes } = require("sequelize");
-const Product = require("./products");
 
-const Brand = sequelize.define(
-  "brands",
+const User = sequelize.define(
+  "users",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,9 +10,17 @@ const Brand = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    name: {
+    firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+    },
+    email: {
+      type: DataTypes.STRING,
+    },
+    passwordDigest: {
+      type: DataTypes.STRING,
     },
   },
   {
@@ -23,7 +30,4 @@ const Brand = sequelize.define(
 
 // sequelize.sync();
 
-Brand.hasMany(Product, { foreignKey: "brandId" });
-Product.belongsTo(Brand, { foreignKey: "brandId" });
-
-module.exports = Brand;
+module.exports = User;

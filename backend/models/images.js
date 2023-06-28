@@ -1,9 +1,9 @@
-const { sequelize } = require('../database');
-const { DataTypes } = require('sequelize');
-const Product = require('../models/products');
+const { sequelize } = require("../database");
+const { DataTypes } = require("sequelize");
+const Product = require("../models/products");
 
 const Images = sequelize.define(
-  'images',
+  "images",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,8 +14,8 @@ const Images = sequelize.define(
     productId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'products',
-        key: 'id',
+        model: "products",
+        key: "id",
       },
     },
     url: {
@@ -30,7 +30,7 @@ const Images = sequelize.define(
 
 // sequelize.sync();
 
-Product.hasMany(Images, { foreignKey: 'productId' });
-Images.belongsTo(Product, { foreignKey: 'productId' });
+Product.hasMany(Images, { foreignKey: "productId" });
+Images.belongsTo(Product, { foreignKey: "productId" });
 
 module.exports = Images;
