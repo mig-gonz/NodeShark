@@ -34,5 +34,5 @@ app.use('*', (req, res) => {
 });
 
 app.listen(9000, () => {
-  console.log({ 'Listening on port': 9000 });
+  console.log({ message: `Listening on port: 9000` });
 });
