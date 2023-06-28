@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const { connectToDB } = require('./database');
 const productRoutes = require('./routes/products');
+const userRoute = require('./routes/users');
 dotenv.config();
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/products', productRoutes);
+app.use('/user', userRoute);
 
 app.get('/', (req, res) => {
   try {
