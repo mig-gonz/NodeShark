@@ -1,5 +1,12 @@
+import ProductDetail from "./components/ProductDetail";
+import "./index.css";
+
 function App() {
-  return <h1>NodeShark</h1>;
+  return (
+    <div>
+      <ProductDetail />
+    </div>
+  );
 }
 
 export default App;

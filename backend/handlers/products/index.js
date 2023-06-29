@@ -1,8 +1,8 @@
-const Product = require('../../models/products');
-const Sku = require('../../models/skus');
-const Brand = require('../../models/brands');
-const Image = require('../../models/images');
-const Style = require('../../models/styles');
+const Product = require("../../models/products");
+const Sku = require("../../models/skus");
+const Brand = require("../../models/brands");
+const Image = require("../../models/images");
+const Style = require("../../models/styles");
 
 async function getAllProducts(req, res) {
   try {
@@ -10,29 +10,29 @@ async function getAllProducts(req, res) {
       include: [
         {
           model: Sku,
-          attributes: ['color', 'size'],
+          attributes: ["color", "size"],
         },
         {
           model: Brand,
-          attributes: ['name'],
+          attributes: ["name"],
         },
         {
           model: Image,
-          attributes: ['url'],
+          attributes: ["url"],
         },
         {
           model: Style,
-          attributes: ['name', 'gender'],
+          attributes: ["name", "gender"],
         },
       ],
-      attributes: ['id', 'name', 'description', 'price'],
+      attributes: ["id", "name", "description", "price"],
     });
 
     res.status(200).json({
-      'All found products!': foundProducts,
+      "All found products!": foundProducts,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -44,29 +44,29 @@ async function getProductById(req, res) {
       include: [
         {
           model: Sku,
-          attributes: ['color', 'size'],
+          attributes: ["color", "size"],
         },
         {
           model: Brand,
-          attributes: ['name'],
+          attributes: ["name"],
         },
         {
           model: Image,
-          attributes: ['url'],
+          attributes: ["url"],
         },
         {
           model: Style,
-          attributes: ['name', 'gender'],
+          attributes: ["name", "gender"],
         },
       ],
-      attributes: ['id', 'name', 'description', 'price'],
+      attributes: ["id", "name", "description", "price"],
     });
 
     res.status(200).json({
-      'Found product': foundProduct,
+      "Found product": foundProduct,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -79,30 +79,30 @@ async function getBrandProducts(req, res) {
       include: [
         {
           model: Sku,
-          attributes: ['color', 'size'],
+          attributes: ["color", "size"],
         },
         {
           model: Brand,
           where: { name: brandName },
-          attributes: ['name'],
+          attributes: ["name"],
         },
         {
           model: Image,
-          attributes: ['url'],
+          attributes: ["url"],
         },
         {
           model: Style,
-          attributes: ['name', 'gender'],
+          attributes: ["name", "gender"],
         },
       ],
-      attributes: ['id', 'name', 'description', 'price'],
+      attributes: ["id", "name", "description", "price"],
     });
 
     res.status(200).json({
-      'Found your brand products': foundProducts,
+      "Found your brand products": foundProducts,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -163,10 +163,10 @@ async function createProduct(req, res) {
     }
 
     res.status(200).json({
-      'New product created!': newProduct,
+      "New product created!": newProduct,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -179,7 +179,7 @@ async function createBrandProduct(req, res) {
     const brand = await Brand.findOne({ where: { name: brandName } });
 
     if (!brand) {
-      return res.status(404).json({ error: 'Brand not found' });
+      return res.status(404).json({ error: "Brand not found" });
     }
 
     // Create a new style
@@ -230,10 +230,10 @@ async function createBrandProduct(req, res) {
     }
 
     res.status(200).json({
-      'New product created!': newProduct,
+      "New product created!": newProduct,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -245,7 +245,7 @@ async function updateProduct(req, res) {
     const foundProduct = await Product.findByPk(productId);
 
     if (!foundProduct) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
     const updatedProduct = await foundProduct.update({
@@ -255,10 +255,10 @@ async function updateProduct(req, res) {
     });
 
     res.status(200).json({
-      'Updated product': updatedProduct,
+      "Updated product": updatedProduct,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -270,25 +270,25 @@ async function deleteProduct(req, res) {
     await foundProduct.destroy();
 
     res.status(200).json({
-      'Deleted product': foundProduct,
+      "Deleted product": foundProduct,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
 async function deleteDataBaseData(req, res) {
-  await sequelize.query('ALTER SEQUENCE products_id_seq RESTART WITH 1');
-  await sequelize.query('ALTER SEQUENCE styles_id_seq RESTART WITH 1');
-  await sequelize.query('ALTER SEQUENCE brands_id_seq RESTART WITH 1');
-  await sequelize.query('ALTER SEQUENCE images_id_seq RESTART WITH 1');
+  await sequelize.query("ALTER SEQUENCE products_id_seq RESTART WITH 1");
+  await sequelize.query("ALTER SEQUENCE styles_id_seq RESTART WITH 1");
+  await sequelize.query("ALTER SEQUENCE brands_id_seq RESTART WITH 1");
+  await sequelize.query("ALTER SEQUENCE images_id_seq RESTART WITH 1");
   await Product.destroy({ where: {} });
   await Style.destroy({ where: {} });
   await Brand.destroy({ where: {} });
   await Image.destroy({ where: {} });
 
   res.status(200).json({
-    'Deleted all products': true,
+    "Deleted all products": true,
   });
 }
 

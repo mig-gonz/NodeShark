@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const { connectToDB } = require("./database");
 const productRoutes = require("./routes/products");
 dotenv.config();
@@ -8,6 +9,7 @@ const app = express();
 // Connect to the database
 connectToDB();
 
+app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
