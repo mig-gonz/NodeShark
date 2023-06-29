@@ -9,6 +9,7 @@ connectToDB();
 
 // Controllers
 const productsController = require('./controllers/products_controller');
+const brandsController = require('./controllers/brands_controller');
 
 // middleware
 app.use(express.static('public'));
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/products', productsController);
+app.use('/brands', brandsController);
 
 app.get('/', (req, res) => {
   try {
