@@ -7,10 +7,16 @@ const app = express();
 // connect to database
 connectToDB();
 
+// Controllers
+const productsController = require('./controllers/products_controller');
+
 // middleware
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use('/products', productsController);
 
 app.get('/', (req, res) => {
   try {
