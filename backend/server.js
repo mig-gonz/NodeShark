@@ -8,8 +8,11 @@ const app = express();
 connectToDB();
 
 // Controllers
-const productsController = require('./controllers/products_controller');
 const brandsController = require('./controllers/brands_controller');
+const imagesController = require('./controllers/images_controller');
+const productsController = require('./controllers/products_controller');
+const skusController = require('./controllers/skus_controller');
+const stylesController = require('./controllers/styles_controller');
 
 // middleware
 app.use(express.static('public'));
@@ -19,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/products', productsController);
 app.use('/brands', brandsController);
+app.use('/styles', stylesController);
+app.use('/images', imagesController);
+app.use('/skus', skusController);
 
 app.get('/', (req, res) => {
   try {
