@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // products have many skus this is referenced as productId on the skus table and is a foreign key to the product id on the products table
       Sku.belongsTo(models.Product, { foreignKey: 'productId' });
       // skus have many wishlist items this is referenced as skuId on the wishlist_items table and is a foreign key to the sku id on the skus table
-      Sku.hasMany(models.wishlistItem, { foreignKey: 'skuId' });
+      Sku.hasMany(models.WishlistItem, { foreignKey: 'skuId' });
     }
   }
   Sku.init(
