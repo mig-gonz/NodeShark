@@ -1,21 +1,23 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const { connectToDB } = require('./database');
-const productRoutes = require('./routes/products');
-const userRoute = require('./routes/users');
 dotenv.config();
 const app = express();
 
-// Connect to the database
+// connect to database
 connectToDB();
 
+// Controllers
+
+const productsController = require('./controllers/products_controller');
+
+// middleware
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/products', productRoutes);
-app.use('/user', userRoute);
+app.use('/products', productsController);
 
 app.get('/', (req, res) => {
   try {
