@@ -1,31 +1,31 @@
-const express = require('express');
+const express = require("express");
 const products = express.Router();
-const db = require('../models');
+const db = require("../models");
 const { Product, Sku, Brand, Image } = db;
 
 // find all products
-products.get('/', async (req, res) => {
+products.get("/", async (req, res) => {
   try {
     const findAllProducts = await Product.findAll({
       include: [
         {
           model: Sku,
-          attributes: ['color', 'size', 'style'],
+          attributes: ["color", "size", "style"],
         },
         {
           model: Brand,
-          attributes: ['name'],
+          attributes: ["name"],
         },
         {
           model: Image,
-          attributes: ['url'],
+          attributes: ["url"],
         },
       ],
     });
 
     res
       .status(200)
-      .json({ message: 'Found all products!', data: findAllProducts });
+      .json({ message: "Found all products!", data: findAllProducts });
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -34,24 +34,24 @@ products.get('/', async (req, res) => {
 });
 
 // find a product
-products.get('/:id', async (req, res) => {
+products.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
     const findAProduct = await Product.findByPk(id, {
-      attributes: ['name', 'description', 'price'],
+      attributes: ["name", "description", "price"],
       include: [
         {
           model: Sku,
-          attributes: ['color', 'size', 'style'],
+          attributes: ["color", "size", "style"],
         },
         {
           model: Brand,
-          attributes: ['name'],
+          attributes: ["name"],
         },
         {
           model: Image,
-          attributes: ['url'],
+          attributes: ["url"],
         },
       ],
     });
@@ -67,20 +67,20 @@ products.get('/:id', async (req, res) => {
 });
 
 // find all product by a brandName
-products.get('/brands/:brandName', async (req, res) => {
+products.get("/brands/:brandName", async (req, res) => {
   try {
     const { brandName } = req.params;
 
     const findProductsByBrand = await Product.findAll({
-      attributes: ['name', 'description', 'price'],
+      attributes: ["name", "description", "price"],
       include: [
         {
           model: Sku,
-          attributes: ['color', 'size', 'style'],
+          attributes: ["color", "size", "style"],
         },
         {
           model: Image,
-          attributes: ['url'],
+          attributes: ["url"],
         },
         {
           model: Brand,
@@ -102,20 +102,20 @@ products.get('/brands/:brandName', async (req, res) => {
 });
 
 // find all product by a brandName and id
-products.get('/brands/:brandName/:id', async (req, res) => {
+products.get("/brands/:brandName/:id", async (req, res) => {
   try {
     const { brandName, id } = req.params;
 
     const findProductsByBrand = await Product.findAll({
-      attributes: ['name', 'description', 'price'],
+      attributes: ["name", "description", "price"],
       include: [
         {
           model: Sku,
-          attributes: ['color', 'size', 'style'],
+          attributes: ["color", "size", "style"],
         },
         {
           model: Image,
-          attributes: ['url'],
+          attributes: ["url"],
         },
         {
           model: Brand,
