@@ -10,11 +10,11 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true,
         },
-        firstname: {
+        firstName: {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        lastname: {
+        lastName: {
           type: Sequelize.STRING,
           allowNull: false,
         },
@@ -32,11 +32,6 @@ module.exports = {
         timestamps: false,
       }
     );
-
-    await queryInterface.addIndex('users', ['email'], {
-      name: 'users_email_index',
-      unique: true,
-    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');

@@ -1,18 +1,16 @@
 const express = require('express');
 const products = express.Router();
 const db = require('../models');
-const { Product, Brand, Style, Sku, Image } = db;
-const { Op } = require('sequelize');
+const { Product, Sku, Brand, Image } = db;
 
-// Find all products
+// find all products
 products.get('/', async (req, res) => {
   try {
-    const foundAllProducts = await Product.findAll({
-      attributes: ['id', 'name', 'description', 'price'],
+    const findAllProducts = await Product.findAll({
       include: [
         {
           model: Sku,
-          attributes: ['color', 'size'],
+          attributes: ['color', 'size', 'style'],
         },
         {
           model: Brand,
@@ -22,142 +20,121 @@ products.get('/', async (req, res) => {
           model: Image,
           attributes: ['url'],
         },
-        {
-          model: Style,
-          attributes: ['name'],
-        },
-      ],
-      order: [[Brand, 'name', 'ASC']],
-      limit: 10,
-    });
-
-    res.send({
-      message: 'Successfully found all products',
-      data: foundAllProducts,
-    });
-  } catch (error) {
-    res.status(500).send({
-      message: error.message,
-    });
-  }
-});
-
-// Find product by it's id
-products.get('/:id', async (req, res) => {
-  try {
-    const foundProduct = await Product.findOne({
-      where: {
-        id: req.params.id,
-      },
-      attributes: ['id', 'name', 'description', 'price'],
-      include: [
-        {
-          model: Sku,
-          attributes: ['color', 'size'],
-        },
-        {
-          model: Brand,
-          attributes: ['name'],
-        },
-        {
-          model: Image,
-          attributes: ['url'],
-        },
-        {
-          model: Style,
-          attributes: ['name'],
-        },
       ],
     });
+
     res
       .status(200)
-      .json({ message: 'Successfully found the product', data: foundProduct });
+      .json({ message: 'Found all products!', data: findAllProducts });
   } catch (error) {
-    res.status(500).send({
+    res.status(500).json({
       message: error.message,
     });
   }
 });
 
-// Find all products by the brand name
-products.get('/brands/:brandName', async (req, res) => {
-  try {
-    const brand = await Brand.findOne({
-      where: {
-        name: req.params.brandName,
-      },
-    });
-
-    const foundBrandItems = await Product.findAll({
-      attributes: ['id', 'name', 'description', 'price'],
-      include: [
-        {
-          model: Sku,
-          attributes: ['color', 'size'],
-        },
-        {
-          model: Brand,
-          attributes: ['name'],
-        },
-        {
-          model: Image,
-          attributes: ['url'],
-        },
-        {
-          model: Style,
-          attributes: ['name'],
-        },
-      ],
-      where: {
-        brandId: brand.id,
-      },
-      order: [[Brand, 'name', 'ASC']],
-    });
-    res.status(200).json({
-      message: 'Successfully found products by this brand',
-      data: foundBrandItems,
-    });
-  } catch (error) {
-    res.status(500).send({
-      message: error.message,
-    });
-  }
-});
-
-products.patch('/:id', async (req, res) => {
+// find a product
+products.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { name, description, price, sku, brandId, styleId, imageId } =
-      req.body;
-
-    await Product.update(
-      {
-        name,
-        description,
-        price,
-        sku,
-        brandId,
-        styleId,
-        imageId,
-      },
-      {
-        where: {
-          id,
+    const findAProduct = await Product.findByPk(id, {
+      attributes: ['name', 'description', 'price'],
+      include: [
+        {
+          model: Sku,
+          attributes: ['color', 'size', 'style'],
         },
-      }
-    );
-
-    const updatedProduct = await Product.findOne({
-      where: {
-        id,
-      },
+        {
+          model: Brand,
+          attributes: ['name'],
+        },
+        {
+          model: Image,
+          attributes: ['url'],
+        },
+      ],
     });
+
     res
       .status(200)
-      .json({ 'Successfully updated the product': updatedProduct });
+      .send({ message: `Found a product with id: ${id}!`, data: findAProduct });
   } catch (error) {
-    res.status(500).send({
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// find all product by a brandName
+products.get('/brands/:brandName', async (req, res) => {
+  try {
+    const { brandName } = req.params;
+
+    const findProductsByBrand = await Product.findAll({
+      attributes: ['name', 'description', 'price'],
+      include: [
+        {
+          model: Sku,
+          attributes: ['color', 'size', 'style'],
+        },
+        {
+          model: Image,
+          attributes: ['url'],
+        },
+        {
+          model: Brand,
+          where: { name: brandName },
+          attributes: [], // Exclude attributes of the Brand model from the result
+        },
+      ],
+    });
+
+    res.status(200).json({
+      message: `Found all products by ${brandName}!`,
+      data: findProductsByBrand,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// find all product by a brandName and id
+products.get('/brands/:brandName/:id', async (req, res) => {
+  try {
+    const { brandName, id } = req.params;
+
+    const findProductsByBrand = await Product.findAll({
+      attributes: ['name', 'description', 'price'],
+      include: [
+        {
+          model: Sku,
+          attributes: ['color', 'size', 'style'],
+        },
+        {
+          model: Image,
+          attributes: ['url'],
+        },
+        {
+          model: Brand,
+          where: { name: brandName },
+          attributes: [], // Exclude attributes of the Brand model from the result
+        },
+      ],
+
+      where: {
+        id: id,
+      },
+    });
+
+    res.status(200).json({
+      message: `Found all products by ${brandName} and id: ${id}!`,
+      data: findProductsByBrand,
+    });
+  } catch (error) {
+    res.status(500).json({
       message: error.message,
     });
   }

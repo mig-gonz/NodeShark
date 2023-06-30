@@ -8,9 +8,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Product.hasMany(models.Image, { foreignKey: 'productId' });
       Product.hasMany(models.Sku, { foreignKey: 'productId' });
-      Product.belongsTo(models.Style, { foreignKey: 'styleId' });
+      Product.hasMany(models.Image, { foreignKey: 'productId' });
       Product.belongsTo(models.Brand, { foreignKey: 'brandId' });
     }
   }
@@ -33,20 +32,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DECIMAL(5, 2),
         allowNull: false,
       },
-      sku: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
       brandId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      styleId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      imageId: {
+        // fk for brand
         type: DataTypes.INTEGER,
         allowNull: false,
       },
