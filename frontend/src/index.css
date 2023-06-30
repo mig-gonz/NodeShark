@@ -1,4 +1,22 @@
-*{
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form-container{
+    display: flex;
+    padding-top: 100px;
+    justify-content: center;
+}
+
+.brand-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    border-radius: 5%;
+}
+
+/* *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -113,7 +131,7 @@ input:focus::placeholder{
 
 .alert-box{
     position: absolute;
-    top: 10%;
+    top: -100%;
     left: 50%;
     transform: translateX(-50%);
     min-width: 150px;
@@ -130,4 +148,4 @@ input:focus::placeholder{
     font-family: 'roboto', sans-serif;
     text-align: center;
     transition: 1s;
-}
+} */
