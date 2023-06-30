@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { sequelize } = require('../database');
+const { sequelize } = require("./database");
 
 const {
   getAllProducts,
@@ -11,29 +11,29 @@ const {
   updateProduct,
   deleteProduct,
   deleteDataBaseData,
-} = require('../handlers/products');
+} = require("../handlers/products");
 
 // Find all products
-router.get('/', getAllProducts);
+router.get("/", getAllProducts);
 
 // Find a product by it's ID
-router.get('/:productId', getProductById);
+router.get("/:productId", getProductById);
 
 // Find all of the brands products
-router.get('/brands/:brandName', getBrandProducts);
+router.get("/brands/:brandName", getBrandProducts);
 
 // Create a product from scratch
-router.post('/', createProduct);
+router.post("/", createProduct);
 
 // Create a new product by an existing brand
-router.post('/brands/:brandName', createBrandProduct);
+router.post("/brands/:brandName", createBrandProduct);
 
 // Update a product
-router.patch('/:productId', updateProduct);
-router.put('/:productId', updateProduct);
+router.patch("/:productId", updateProduct);
+router.put("/:productId", updateProduct);
 
 // Delete a product
-router.delete('/:productId', deleteProduct);
+router.delete("/:productId", deleteProduct);
 
 // Bulk delete DB information
 // Commenting out so the route does not work unless i want it to.
