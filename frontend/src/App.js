@@ -5,6 +5,7 @@ import "./index.css";
 function App() {
   return (
     <div>
+      {/* <NavBar /> */}
       <NavBar2 />
       <ProductDetail />
     </div>
