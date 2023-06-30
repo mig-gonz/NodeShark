@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const { connectToDB } = require("./database");
 dotenv.config();
 const app = express();
+const cors = require("cors");
 
 // connect to database
 connectToDB();
@@ -12,6 +13,7 @@ connectToDB();
 const productsController = require("./controllers/products_controller");
 
 // middleware
+app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -6,6 +6,7 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const navigation = {
   categories: [
@@ -322,6 +323,7 @@ const NavBar2 = () => {
       </Transition.Root>
 
       <header className="relative bg-white">
+        {/* speacial offer */}
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
         </p>
@@ -343,7 +345,7 @@ const NavBar2 = () => {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="#">
+                <a href="/">
                   <span className="sr-only">Your Company</span>
                   <img
                     className="h-8 w-auto"
@@ -465,15 +467,29 @@ const NavBar2 = () => {
                     </Popover>
                   ))}
 
-                  {navigation.pages.map((page) => (
-                    <a
-                      key={page.name}
-                      href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      {page.name}
-                    </a>
-                  ))}
+                  {navigation.pages.map((page) => {
+                    if (page.name === "Stores") {
+                      return (
+                        <Link
+                          key={page.name}
+                          to="/productdetail"
+                          className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                        >
+                          {page.name}
+                        </Link>
+                      );
+                    }
+
+                    return (
+                      <a
+                        key={page.name}
+                        href={page.href}
+                        className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        {page.name}
+                      </a>
+                    );
+                  })}
                 </div>
               </Popover.Group>
 
