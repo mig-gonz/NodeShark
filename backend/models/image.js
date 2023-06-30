@@ -14,12 +14,13 @@ module.exports = (sequelize, DataTypes) => {
   Image.init(
     {
       id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
+        allowNull: false,
         autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
       },
       url: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       productId: {
@@ -30,8 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Image',
-      tableName: 'images',
-      timestamps: false,
     }
   );
   return Image;

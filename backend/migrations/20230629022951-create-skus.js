@@ -15,7 +15,11 @@ module.exports = {
           allowNull: false,
         },
         size: {
-          type: Sequelize.ENUM('XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'),
+          type: Sequelize.STRING(),
+          allowNull: false,
+        },
+        style: {
+          type: Sequelize.STRING(),
           allowNull: false,
         },
         productId: {
@@ -27,19 +31,8 @@ module.exports = {
         timestamps: false,
       }
     );
-
-    await queryInterface.addConstraint('skus', {
-      fields: ['productId'],
-      type: 'foreign key',
-      name: 'productId_fk',
-      references: {
-        table: 'products',
-        field: 'id',
-      },
-    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeConstraint('skus', 'productId_fk');
     await queryInterface.dropTable('skus');
   },
 };

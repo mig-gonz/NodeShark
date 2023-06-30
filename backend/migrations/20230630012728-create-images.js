@@ -6,9 +6,10 @@ module.exports = {
       'images',
       {
         id: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
+          allowNull: false,
           autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER,
         },
         url: {
           type: Sequelize.STRING,
@@ -19,22 +20,8 @@ module.exports = {
           allowNull: false,
         },
       },
-      {
-        timestamps: false,
-      }
+      { timestamps: false }
     );
-
-    await queryInterface.addConstraint('images', {
-      fields: ['productId'],
-      type: 'foreign key',
-      name: 'productId_fk',
-      references: {
-        table: 'products',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('images');

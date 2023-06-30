@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      // this means that the Brand model has a one-to-many relationship with the Product model, and is referenced as brandId on the Product model
       Brand.hasMany(models.Product, { foreignKey: 'brandId' });
     }
   }

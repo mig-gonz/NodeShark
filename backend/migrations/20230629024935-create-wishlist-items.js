@@ -23,30 +23,6 @@ module.exports = {
         timestamps: false,
       }
     );
-
-    await queryInterface.addConstraint('wishlist_items', {
-      fields: ['skuId'],
-      type: 'foreign key',
-      name: 'skuId_fk',
-      references: {
-        table: 'skus',
-        field: 'id',
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade',
-    });
-
-    await queryInterface.addConstraint('wishlist_items', {
-      fields: ['userId'],
-      type: 'foreign key',
-      name: 'userId_fk',
-      references: {
-        table: 'users',
-        field: 'id',
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade',
-    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('wishlist_items');
