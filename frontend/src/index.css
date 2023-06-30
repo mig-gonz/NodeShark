@@ -16,3 +16,7 @@
     border-radius: 5%;
     box-shadow: 10px 7px 5px rgb(119, 119, 119);
 }
+
+a:hover {
+    color:black;
+}
