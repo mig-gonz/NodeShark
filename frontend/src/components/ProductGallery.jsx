@@ -2,7 +2,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 
-const ProductGallery = ({ products, onProductClick }) => {
+const ProductGallery = ({ products }) => {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -19,12 +19,9 @@ const ProductGallery = ({ products, onProductClick }) => {
           autoPlay={true}
           interval={3000}
         >
-          {products?.slice(0, 5).map((product) => (
+          {products.slice(0, 5).map((product) => (
             <div key={product.id} className="group relative">
-              <Link
-                to={`/product/${product.id}`}
-                onClick={() => onProductClick(product)}
-              >
+              <Link to={`/product/${product.id}`}>
                 <div className="aspect-h-1 aspect-w-1 w-4/5 overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   {product.Images.length > 0 && (
                     <img

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 
@@ -61,47 +62,69 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const ProductDetail = ({ product }) => {
+const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState(products.colors[0]);
   const [selectedSize, setSelectedSize] = useState(products.sizes[2]);
 
-  if (!product || !product.Images) {
+  const [product, setProduct] = useState([]);
+  const { product_id } = useParams();
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/products/${product_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProduct(data.data);
+      });
+  }, [product_id]);
+
+  console.log("product: " + product_id);
+
+  if (!product) {
     return <div>Loading...</div>;
   }
+
   return (
     <div className="bg-white">
       <div className="pt-6">
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-            <img
-              src={product.Images[0].url}
-              alt="Product Image 1"
-              className="h-full w-full object-cover object-center"
-            />
+            {product && product.Images && product.Images[0] && (
+              <img
+                src={product.Images[0].url}
+                alt="Product Image 1"
+                className="h-full w-full object-cover object-center"
+              />
+            )}
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
-                src={product.Images[1].url}
-                alt="Product Image 2"
-                className="h-full w-full object-cover object-center"
-              />
+              {product && product.Images && product.Images[1] && (
+                <img
+                  src={product.Images[1].url}
+                  alt="Product Image 2"
+                  className="h-full w-full object-cover object-center"
+                />
+              )}
             </div>
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
-                src={product.Images[2].url}
-                alt="Product Image 3"
-                className="h-full w-full object-cover object-center"
-              />
+              {product && product.Images && product.Images[2] && (
+                <img
+                  src={product.Images[2].url}
+                  alt="Product Image 3"
+                  className="h-full w-full object-cover object-center"
+                />
+              )}
             </div>
           </div>
           <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-            <img
-              src={product.Images[3].url}
-              alt="Product Image 4"
-              className="h-full w-full object-cover object-center"
-            />
+            {product && product.Images && product.Images[3] && (
+              <img
+                src={product.Images[3].url}
+                alt="Product Image 4"
+                className="h-full w-full object-cover object-center"
+              />
+            )}
           </div>
         </div>
 
