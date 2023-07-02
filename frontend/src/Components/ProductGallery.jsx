@@ -22,28 +22,31 @@ const ProductGallery = () => {
 				</h2>
 
 				<Carousel
-					className=""
 					showThumbs={false}
 					showStatus={false}
-					infiniteLoop={false}
 					centerMode={true}
-					centerSlidePercentage={33.3}
+					centerSlidePercentage={38}
 					autoPlay={true}
+					showArrows={false}
 					interval={3000}>
 					{products.map((product) => (
 						<div
 							key={product.id}
-							className="m-5">
-							<img
-								src={product.Images[0].url}
-								alt=""
-							/>
+							className="m-5 text-[#D0D3DB]">
 							<Link to={`/products/${product.id}`}>
-								<h1 className="text-lg font-bold pl-2 my-2 hover:underline">
-									{product.name}
+								<div>
+									<img
+										src={product?.Images[0]?.url}
+										alt=""
+									/>
+								</div>
+							</Link>
+							<Link to={`/products/${product.id}`}>
+								<h1 className="text-lg font-bold pl-2 my-2 hover:underline hover:text-[#D0D3DB]">
+									{product?.name}
 								</h1>
 							</Link>
-							<p className="pl-2 mb-10">${product.price}</p>
+							<p className="pl-2 mb-10">${product?.price}</p>
 						</div>
 					))}
 				</Carousel>
