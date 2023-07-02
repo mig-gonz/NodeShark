@@ -21,8 +21,6 @@ const ProductDetail = () => {
 			});
 	}, [id]);
 
-	// console.log("product: " + product_id);
-
 	if (!product) {
 		return <div>Loading...</div>;
 	}
@@ -31,13 +29,13 @@ const ProductDetail = () => {
 		<div className="bg-white">
 			<div className="pt-6">
 				{/* Image gallery */}
-				<div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-					<div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+				<div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-4 lg:px-4">
+					<div className="hidden overflow-hidden rounded-lg lg:block">
 						{product && product.Images && product.Images[0] && (
 							<img
 								src={product.Images[0].url}
-								alt="Product Image 1"
-								className="h-full w-full object-cover object-center"
+								alt={product.name}
+								className="h-full w-full object-cover"
 							/>
 						)}
 					</div>
@@ -46,8 +44,8 @@ const ProductDetail = () => {
 							{product && product.Images && product.Images[1] && (
 								<img
 									src={product.Images[1].url}
-									alt="Product Image 2"
-									className="h-full w-full object-cover object-center"
+									alt={product.name}
+									className=" object-cover h-full w-full"
 								/>
 							)}
 						</div>
@@ -55,8 +53,8 @@ const ProductDetail = () => {
 							{product && product.Images && product.Images[2] && (
 								<img
 									src={product.Images[2].url}
-									alt="Product Image 3"
-									className="h-full w-full object-cover object-center"
+									alt={product.name}
+									className="h-full w-full object-cover"
 								/>
 							)}
 						</div>
@@ -65,8 +63,8 @@ const ProductDetail = () => {
 						{product && product.Images && product.Images[3] && (
 							<img
 								src={product.Images[3].url}
-								alt="Product Image 4"
-								className="h-full w-full object-cover object-center"
+								alt={product.name}
+								className="h-full w-full object-cover"
 							/>
 						)}
 					</div>
@@ -99,14 +97,13 @@ const ProductDetail = () => {
 										Choose a color
 									</RadioGroup.Label>
 									<div className="flex items-center space-x-3">
-										{product.Skus &&
-											product.Skus.map((sku) => (
+										{[...new Set(product?.Skus?.map((sku) => sku.color))].map(
+											(color) => (
 												<RadioGroup.Option
-													key={sku.id}
-													value={sku.color}
+													key={color}
+													value={color}
 													className={({ active, checked }) =>
 														classNames(
-															sku.selectedClass,
 															active && checked ? "ring ring-offset-1" : "",
 															!active && checked ? "ring-2" : "",
 															"relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
@@ -115,18 +112,18 @@ const ProductDetail = () => {
 													<RadioGroup.Label
 														as="span"
 														className="sr-only">
-														{sku.color}
+														{color}
 													</RadioGroup.Label>
 													<span
 														aria-hidden="true"
 														className={classNames(
-															sku.class,
 															"h-8 w-8 rounded-full border border-black border-opacity-10"
 														)}
-														style={{ backgroundColor: sku.color }}
+														style={{ backgroundColor: color }}
 													/>
 												</RadioGroup.Option>
-											))}
+											)
+										)}
 									</div>
 								</RadioGroup>
 							</div>
@@ -150,8 +147,11 @@ const ProductDetail = () => {
 										Choose a size
 									</RadioGroup.Label>
 									<div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-										{product.Skus &&
-											product.Skus.map((sku) => (
+										{product?.Skus &&
+											product?.Skus?.filter(
+												(sku, index, self) =>
+													self.findIndex((s) => s.size === sku.size) === index
+											).map((sku) => (
 												<RadioGroup.Option
 													key={sku.size}
 													value={sku.size}
