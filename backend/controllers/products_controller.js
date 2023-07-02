@@ -86,28 +86,33 @@ products.get("/brands/:brandName", async (req, res) => {
 	try {
 		const { brandName } = req.params;
 
-		const findProductsByBrand = await Product.findAll({
-			attributes: ["name", "description", "price"],
+		const findAllBrandNameProducts = await Product.findAll({
+			attributes: [
+				"name",
+				"description",
+				"price",
+				"gender",
+				"categoryId",
+				"brandId",
+			],
 			include: [
-				{
-					model: Sku,
-					attributes: ["color", "size", "style"],
-				},
-				{
-					model: Image,
-					attributes: ["url"],
-				},
 				{
 					model: Brand,
 					where: { name: brandName },
-					attributes: [], // Exclude attributes of the Brand model from the result
+				},
+				{ model: Category },
+				{
+					model: Sku,
+				},
+				{
+					model: Image,
 				},
 			],
 		});
 
 		res.status(200).json({
 			message: `Found all products by ${brandName}!`,
-			data: findProductsByBrand,
+			data: findAllBrandNameProducts,
 		});
 	} catch (error) {
 		res.status(500).json({
