@@ -1,13 +1,17 @@
+import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import ProductDetail from "./components/ProductDetail";
-import "./index.css";
-import NavBar from "./components/Navbar";
+import NavBar2 from "./components/NavBar2";
 
 function App() {
   return (
-    <div>
-      <NavBar />
-      <ProductDetail />
-    </div>
+    <Router>
+      <NavBar2 />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:product_id" element={<ProductDetail />} />
+      </Routes>
+    </Router>
   );
 }
 

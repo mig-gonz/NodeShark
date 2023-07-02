@@ -32,6 +32,7 @@ products.get("/", async (req, res) => {
     });
   }
 });
+
 // find a product
 products.get("/:id", async (req, res) => {
   try {
@@ -64,6 +65,7 @@ products.get("/:id", async (req, res) => {
     });
   }
 });
+
 // find all product by a brandName
 products.get("/brands/:brandName", async (req, res) => {
   try {
