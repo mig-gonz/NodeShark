@@ -1,5 +1,7 @@
+import Hero from "../components/Hero";
 import ProductGallery from "../components/ProductGallery";
 import React, { useState, useEffect } from "react";
+
 const Home = () => {
   const [products, setProducts] = useState([]);
 
@@ -18,6 +20,7 @@ const Home = () => {
 
   return (
     <div>
+      <Hero />
       <ProductGallery products={products} />
     </div>
   );
