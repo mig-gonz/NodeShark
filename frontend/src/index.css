@@ -2,21 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-.form-container{
-    display: flex;
-    padding-top: 100px;
-    justify-content: center;
+.form-container {
+  display: flex;
+  padding-top: 100px;
+  justify-content: center;
 }
 
 .brand-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 20px;
-    border-radius: 5%;
-    box-shadow: 10px 7px 5px rgb(119, 119, 119);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  border-radius: 5%;
+  box-shadow: 10px 7px 5px rgb(119, 119, 119);
 }
 
 a:hover {
-    color:black;
+  color: black;
 }

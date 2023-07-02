@@ -27,20 +27,20 @@ products.get("/", async (req, res) => {
 			],
 		});
 
-		res
-			.status(200)
-			.json({ message: "Found all products!", data: findAllProducts });
-	} catch (error) {
-		res.status(500).json({
-			message: error.message,
-		});
-	}
+    res
+      .status(200)
+      .json({ message: "Found all products!", data: findAllProducts });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 });
 
 // find a product
 products.get("/:id", async (req, res) => {
-	try {
-		const { id } = req.params;
+  try {
+    const { id } = req.params;
 
 		const findAProduct = await Product.findByPk(id, {
 			attributes: [
@@ -83,8 +83,8 @@ products.get("/:id", async (req, res) => {
 
 // find all product by a brandName
 products.get("/brands/:brandName", async (req, res) => {
-	try {
-		const { brandName } = req.params;
+  try {
+    const { brandName } = req.params;
 
 		const findAllBrandNameProducts = await Product.findAll({
 			attributes: [
@@ -123,8 +123,8 @@ products.get("/brands/:brandName", async (req, res) => {
 
 // find all product by a brandName and id
 products.get("/brands/:brandName/:id", async (req, res) => {
-	try {
-		const { brandName, id } = req.params;
+  try {
+    const { brandName, id } = req.params;
 
 		const findProductsByBrand = await Product.findAll({
 			attributes: [
@@ -149,10 +149,10 @@ products.get("/brands/:brandName/:id", async (req, res) => {
 				},
 			],
 
-			where: {
-				id: id,
-			},
-		});
+      where: {
+        id: id,
+      },
+    });
 
 		res.status(200).json({
 			message: `Found all products by ${brandName} and product id: ${id}!`,
