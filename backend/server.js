@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const { connectToDB } = require('./database');
+const cors = require('cors')
 dotenv.config();
 const app = express();
 
@@ -12,12 +13,14 @@ connectToDB();
 const productsController = require('./controllers/products_controller');
 
 // middleware
+app.use(cors())
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/products', productsController);
+app.use('/user', require('./controllers/user_controller'));
 
 app.get('/', (req, res) => {
   try {
