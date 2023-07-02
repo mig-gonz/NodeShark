@@ -1,7 +1,7 @@
 const express = require("express");
 const products = express.Router();
 const db = require("../models");
-const { Product, Sku, Brand, Image } = db;
+const { Product, Sku, Brand, Image, Category } = db;
 
 // find all products
 products.get("/", async (req, res) => {
@@ -9,12 +9,16 @@ products.get("/", async (req, res) => {
 		const findAllProducts = await Product.findAll({
 			include: [
 				{
-					model: Sku,
-					attributes: ["color", "size", "style"],
-				},
-				{
 					model: Brand,
 					attributes: ["name"],
+				},
+				{
+					model: Category,
+					attributes: ["name"],
+				},
+				{
+					model: Sku,
+					attributes: ["color", "size", "style"],
 				},
 				{
 					model: Image,
