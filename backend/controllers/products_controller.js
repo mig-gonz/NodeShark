@@ -43,15 +43,26 @@ products.get("/:id", async (req, res) => {
 		const { id } = req.params;
 
 		const findAProduct = await Product.findByPk(id, {
-			attributes: ["name", "description", "price"],
+			attributes: [
+				"name",
+				"description",
+				"price",
+				"gender",
+				"categoryId",
+				"brandId",
+			],
 			include: [
-				{
-					model: Sku,
-					attributes: ["color", "size", "style"],
-				},
 				{
 					model: Brand,
 					attributes: ["name"],
+				},
+				{
+					model: Category,
+					attributes: ["name"],
+				},
+				{
+					model: Sku,
+					attributes: ["color", "size", "style"],
 				},
 				{
 					model: Image,
@@ -62,7 +73,7 @@ products.get("/:id", async (req, res) => {
 
 		res
 			.status(200)
-			.send({ message: `Found a product with id: ${id}!`, data: findAProduct });
+			.json({ message: `Found a product with id: ${id}!`, data: findAProduct });
 	} catch (error) {
 		res.status(500).json({
 			message: error.message,
