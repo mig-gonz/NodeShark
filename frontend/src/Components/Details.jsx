@@ -153,14 +153,13 @@ const ProductDetail = () => {
                     Choose a color
                   </RadioGroup.Label>
                   <div className="flex items-center space-x-3">
-                    {product.Skus &&
-                      product.Skus.map((sku) => (
+                    {[...new Set(product?.Skus?.map((sku) => sku.color))].map(
+                      (color) => (
                         <RadioGroup.Option
-                          key={sku.id}
-                          value={sku.color}
+                          key={color}
+                          value={color}
                           className={({ active, checked }) =>
                             classNames(
-                              sku.selectedClass,
                               active && checked ? "ring ring-offset-1" : "",
                               !active && checked ? "ring-2" : "",
                               "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
@@ -168,18 +167,18 @@ const ProductDetail = () => {
                           }
                         >
                           <RadioGroup.Label as="span" className="sr-only">
-                            {sku.color}
+                            {color}
                           </RadioGroup.Label>
                           <span
                             aria-hidden="true"
                             className={classNames(
-                              sku.class,
                               "h-8 w-8 rounded-full border border-black border-opacity-10"
                             )}
-                            style={{ backgroundColor: sku.color }}
+                            style={{ backgroundColor: color }}
                           />
                         </RadioGroup.Option>
-                      ))}
+                      )
+                    )}
                   </div>
                 </RadioGroup>
               </div>
