@@ -466,29 +466,12 @@ const NavBar2 = () => {
                     </Popover>
                   ))}
 
-                  {navigation.pages.map((page) => {
-                    if (page.name === "Stores") {
-                      return (
-                        <Link
-                          key={page.name}
-                          to="/productdetail"
-                          className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                        >
-                          {page.name}
-                        </Link>
-                      );
-                    }
-
-                    return (
-                      <a
-                        key={page.name}
-                        href={page.href}
-                        className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                      >
-                        {page.name}
-                      </a>
-                    );
-                  })}
+                  <Link
+                    to="/viewall"
+                    className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                  >
+                    Shop All
+                  </Link>
                 </div>
               </Popover.Group>
 

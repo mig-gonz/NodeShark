@@ -1,15 +1,27 @@
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-const ProductGallery = ({ products }) => {
+const ProductGallery = () => {
+  const [products, setProducts] = useState([]);
+
+  const URL = "http://localhost:5000/products";
+
+  useEffect(() => {
+    fetch(URL)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.data);
+      });
+  }, []);
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-          Product Gallery
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900 text-center ">
+          Top Picks
         </h2>
-
         <Carousel
           showThumbs={false}
           showStatus={false}
