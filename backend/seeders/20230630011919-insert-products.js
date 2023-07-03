@@ -83,3 +83,13 @@ module.exports = {
     await queryInterface.bulkDelete("products", null, {});
   },
 };
+
+/* {
+	name: "",
+	description: "",
+	gender: "",
+	categoryId: "",
+	price: "",
+	brandId: "",
+},
+*/
