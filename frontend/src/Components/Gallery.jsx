@@ -21,7 +21,7 @@ const ProductGallery = ({ products }) => {
         >
           {products.slice(0, 5).map((product) => (
             <div key={product.id} className="group relative">
-              <Link to={`/product/${product.id}`}>
+              <Link to={`/products/${product.id}`}>
                 <div className="aspect-h-1 aspect-w-1 w-4/5 overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   {product.Images.length > 0 && (
                     <img

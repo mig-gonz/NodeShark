@@ -1,5 +1,5 @@
 import Hero from "../components/Hero";
-import ProductGallery from "../components/ProductGallery";
+import Gallery from "../components/Gallery";
 import React, { useState, useEffect } from "react";
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
-      <ProductGallery products={products} />
+      <Gallery products={products} />
     </div>
   );
 };

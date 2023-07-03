@@ -66,17 +66,15 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(products.sizes[2]);
 
   const [product, setProduct] = useState([]);
-  const { product_id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products/${product_id}`)
+    fetch(`http://localhost:5000/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data.data);
       });
-  }, [product_id]);
-
-  // console.log("product: " + product_id);
+  }, [id]);
 
   if (!product) {
     return <div>Loading...</div>;

@@ -1,23 +1,24 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import User from "./pages/User";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./pages/Home";
-import NavBar2 from "./components/NavBar2";
-import ProductDetail from "./components/ProductDetail";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Detail from "./components/Detail";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <Router>
-      <NavBar2 />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/product/:product_id" element={<ProductDetail />} />
+        <Route path="/products/:id" element={<Detail />} />
         <Route path="/user" element={<User />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
