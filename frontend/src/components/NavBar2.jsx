@@ -287,7 +287,7 @@ const NavBar2 = () => {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <a
-                      href="#"
+                      href="/user"
                       className="-m-2 block p-2 font-medium text-gray-900"
                     >
                       Sign in
@@ -496,7 +496,7 @@ const NavBar2 = () => {
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <a
-                    href="#"
+                    href="/user"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
                     Sign in
