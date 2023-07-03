@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const { connectToDB } = require("./database");
+const cors = require("cors");
 dotenv.config();
 const app = express();
 const cors = require("cors");
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/products", productsController);
+app.use("/user", require("./controllers/user_controller"));
 
 app.get("/", (req, res) => {
   try {
