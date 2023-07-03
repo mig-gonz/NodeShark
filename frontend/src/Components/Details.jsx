@@ -62,7 +62,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const ProductDetail = () => {
+const Details = () => {
   const [selectedSize, setSelectedSize] = useState(products.sizes[2]);
 
   const [product, setProduct] = useState([]);
@@ -292,4 +292,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default Details;
