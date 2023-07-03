@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import Details from "./components/Details";
 import ViewAll from "./Pages/ViewAll";
 import Footer from "./components/Footer";
+import Women from "./components/Women";
+import Men from "./components/Men";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products/:id" element={<Details />} />
         <Route path="/viewall" element={<ViewAll />} />
+        <Route path="/women" element={<Women />} />
+        <Route path="/men" element={<Men />} />
         <Route path="/user" element={<User />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
