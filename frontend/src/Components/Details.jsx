@@ -6,7 +6,7 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-const ProductDetail = () => {
+const Details = () => {
 	const [selectedSize, setSelectedSize] = useState([]);
 
 	const [product, setProduct] = useState([]);
@@ -15,8 +15,8 @@ const ProductDetail = () => {
 	useEffect(() => {
 		fetch(`http://localhost:9000/products/${id}`)
 			.then((res) => res.json())
-			.then((data) => {
-				setProduct(data.data);
+			.then(({ data }) => {
+				setProduct(data);
 			});
 	}, [id]);
 
@@ -232,4 +232,4 @@ const ProductDetail = () => {
 	);
 };
 
-export default ProductDetail;
+export default Details;

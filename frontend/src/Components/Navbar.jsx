@@ -142,7 +142,7 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-const NavBar2 = () => {
+const NavBar = () => {
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -559,4 +559,4 @@ const NavBar2 = () => {
 	);
 };
 
-export default NavBar2;
+export default NavBar;

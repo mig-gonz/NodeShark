@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 
-const ProductGallery = () => {
+const Gallery = () => {
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
@@ -15,7 +15,7 @@ const ProductGallery = () => {
 	}, []);
 
 	return (
-		<div className="bg-white">
+		<div className="bg-white mb-8 flex justify-center items-center overflow-hidden h-[750px]">
 			<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 				<h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-2">
 					Check out our newest drops!
@@ -27,7 +27,7 @@ const ProductGallery = () => {
 					centerMode={true}
 					centerSlidePercentage={38}
 					autoPlay={true}
-					showArrows={false}
+					showArrows={true}
 					interval={3000}>
 					{products.map((product) => (
 						<div
@@ -46,7 +46,7 @@ const ProductGallery = () => {
 									{product?.name}
 								</h1>
 							</Link>
-							<p className="pl-2 mb-10">${product?.price}</p>
+							<p className="pl-2 mb-10">{`$${product.price}`}</p>
 						</div>
 					))}
 				</Carousel>
@@ -55,4 +55,4 @@ const ProductGallery = () => {
 	);
 };
 
-export default ProductGallery;
+export default Gallery;

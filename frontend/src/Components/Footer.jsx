@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
 	return (
-		<div className="max-w-[1240px] mx-auto py-16 px-4 grid gap-6 lg:grid-cols-2">
+		<div className="max-w-[1240px] mx-auto py-6 px-4 grid gap-6 lg:grid-cols-2">
 			<div>
 				<h1 className="w-full text-3xl font-bold">NodeShark</h1>
-				<p className="py-5">
+				<p className="py-4">
 					Shop your favorite styles all in one place, we offer the best from all
 					of the tops brands in the industry for your workout!
 				</p>
@@ -20,8 +20,12 @@ const Footer = () => {
 						<Link to="/products/mens">
 							<li className="text-sm py-2 pl-1">Mens</li>
 						</Link>
-						<li className="text-sm py-2 pl-1">Womens</li>
-						<li className="text-sm py-2 pl-1">All Products</li>
+						<Link to="/products/womens">
+							<li className="text-sm py-2 pl-1">Womens</li>
+						</Link>
+						<Link to="/products/all">
+							<li className="text-sm py-2 pl-1">All Products</li>
+						</Link>
 					</ul>
 				</div>
 				<div>

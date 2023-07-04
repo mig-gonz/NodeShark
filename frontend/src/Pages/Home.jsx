@@ -1,12 +1,12 @@
-import Hero from "../components/Hero";
-import ProductGallery from "../components/ProductGallery";
 import React, { useState, useEffect } from "react";
+import Gallery from "../components/Gallery";
+import Hero from "../components/Hero";
 
 const Home = () => {
 	return (
 		<div>
 			<Hero />
-			<ProductGallery />
+			<Gallery />
 		</div>
 	);
 };
