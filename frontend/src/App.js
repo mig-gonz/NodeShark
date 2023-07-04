@@ -8,6 +8,7 @@ import Mens from "./components/Mens";
 import Womens from "./components/Womens";
 import AllProducts from "./components/AllProducts";
 import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
 
 function App() {
 	return (
@@ -41,6 +42,10 @@ function App() {
 				<Route
 					path="/about-us"
 					element={<AboutUs />}
+				/>
+				<Route
+					path="/contact-us"
+					element={<ContactUs />}
 				/>
 			</Routes>
 			<Footer />

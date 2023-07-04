@@ -37,7 +37,9 @@ const Footer = () => {
 						<Link to="https://github.com/mig-gonz/NodeShark">
 							<li className="text-sm py-2 pl-1">Source Code</li>
 						</Link>
-						<li className="text-sm py-2 pl-1">Contact Us</li>
+						<Link to={"/contact-us"}>
+							<li className="text-sm py-2 pl-1">Contact Us</li>
+						</Link>
 					</ul>
 				</div>
 				<div>
