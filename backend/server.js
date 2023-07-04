@@ -11,6 +11,7 @@ connectToDB();
 // Controllers
 
 const productsController = require('./controllers/products_controller');
+const userController = require('./controllers/user_controller')
 
 // middleware
 app.use(cors())
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/products', productsController);
-app.use('/user', require('./controllers/user_controller'));
+app.use('/user', userController);
 
 app.get('/', (req, res) => {
   try {

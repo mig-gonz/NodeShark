@@ -1,12 +1,45 @@
+import { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom"
+import { CurrentUser } from "../contexts/CurrentUser"
 
+function Login() {
 
-function Login(props) {
+    const navigate = useNavigate()
+
+    const { setCurrentUser } = useContext(CurrentUser)
+
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: ''
+    })
+
+    const [errorMessage, setErrorMessage] = useState(null)
+    
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const response = await fetch('http://localhost:9000/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+
+        const data = await response.json()
+
+        if (response.status === 200) {
+            setCurrentUser(data.user)
+            navigate('/')
+        } else {
+            setErrorMessage(data.message)
+        }
+    }
     return (
         <div>
             <img class="brand-img" src="https://images.unsplash.com/photo-1610969524113-bae462bb3892?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGF0aGxldGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"/>
             <div class="form-container">
                 <div class="block max-w-sm rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(85,85,85,0.8),0_10px_20px_-2px_rgba(85,85,85,0.8)] dark:bg-neutral-700">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         {/* Email Input */}
                         <div class="relative mb-6" data-te-input-wrapper-init>
                             <input
@@ -34,11 +67,10 @@ function Login(props) {
                         {/* Register Link */}
                         <a 
                             class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
-                            href="#"
-                            onClick={props.handleForm}
+                            href="/user/register"
                         >Don't have an account? Register here.</a>
                         
-                        {/* Sign in Button */}
+                        {/* :Login in Button */}
                         <button
                             type="submit"
                             class="dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]] inline-block w-full rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
