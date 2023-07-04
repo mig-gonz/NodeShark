@@ -14,7 +14,7 @@ const Banner = () => {
           className="h-full w-full object-cover object-center absolute inset-0 m-auto"
           style={{ maxHeight: "100%", maxWidth: "100%" }}
         />
-        <div className="absolute inset-x-0 bottom-0 px-4 pb-4 text-white text-center">
+        <div className="absolute inset-x-0 top-0 px-4 pb-4 text-white text-center">
           <h2 className="text-xl font-bold">Champions never quit.</h2>
         </div>
       </div>

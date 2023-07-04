@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Women = () => {
   const [products, setProducts] = useState([]);
@@ -25,21 +26,23 @@ const Women = () => {
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {femaleProducts.map((product) => (
-            <a key={product.id} href={product.href} className="group">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                {product && product.Images && product.Images[0] && (
-                  <img
-                    src={product.Images[0].url}
-                    alt={product.name}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  />
-                )}
-              </div>
-              <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-              <p className="mt-1 text-lg font-medium text-gray-900">
-                {product.price}
-              </p>
-            </a>
+            <React.Fragment key={product.id}>
+              <Link to={`/details/${product.id}`} className="group">
+                <div className="group-hover:opacity-75 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                  {product && product.Images && product.Images[0] && (
+                    <img
+                      src={product.Images[0].url}
+                      alt={product.name}
+                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    />
+                  )}
+                </div>
+                <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
+                <p className="mt-1 text-lg font-medium text-gray-900">
+                  {product.price}
+                </p>
+              </Link>
+            </React.Fragment>
           ))}
         </div>
       </div>
