@@ -31,8 +31,12 @@ const Footer = () => {
 				<div>
 					<h6 className="font-medium border-b border-b-gray-700 p-2">Pages</h6>
 					<ul>
-						<li className="text-sm py-2 pl-1">About Us</li>
-						<li className="text-sm py-2 pl-1">Source Code</li>
+						<Link to={"/about-us"}>
+							<li className="text-sm py-2 pl-1">About Us</li>
+						</Link>
+						<Link to="https://github.com/mig-gonz/NodeShark">
+							<li className="text-sm py-2 pl-1">Source Code</li>
+						</Link>
 						<li className="text-sm py-2 pl-1">Contact Us</li>
 					</ul>
 				</div>

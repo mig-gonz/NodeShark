@@ -7,6 +7,7 @@ import Details from "./components/Details";
 import Mens from "./components/Mens";
 import Womens from "./components/Womens";
 import AllProducts from "./components/AllProducts";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
 	return (
@@ -36,6 +37,10 @@ function App() {
 				<Route
 					path="/products/all"
 					element={<AllProducts />}
+				/>
+				<Route
+					path="/about-us"
+					element={<AboutUs />}
 				/>
 			</Routes>
 			<Footer />
