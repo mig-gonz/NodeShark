@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  // I removed the py-16 on the outer most div, and changed the py-5 on the p element to py-2
   return (
-    <div className="max-w-[1240px] mx-auto py-16 px-4 grid gap-6 lg:grid-cols-2">
+    <div className="max-w-[1240px] mx-auto  px-4 grid gap-6 lg:grid-cols-2">
       <div>
         <h1 className="w-full text-3xl font-bold">NodeShark</h1>
-        <p className="py-5">
+        <p className="py-2">
           Shop your favorite styles all in one place, we offer the best from all
           of the tops brands in the industry for your workout!
         </p>
