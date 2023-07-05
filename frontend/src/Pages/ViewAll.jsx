@@ -26,7 +26,7 @@ const ViewAll = () => {
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.slice(0, 8).map((product) => (
             <div key={product.id} className="group relative">
-              <Link to={`/products/${product.id}`}>
+              <Link to={`/details/${product.id}`}>
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   {product && product.Images && product.Images[0] && (
                     <img
@@ -57,7 +57,7 @@ const ViewAll = () => {
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.slice(8).map((product) => (
             <div key={product.id} className="group relative">
-              <Link to={`/products/${product.id}`}>
+              <Link to={`/details/${product.id}`}>
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   {product && product.Images && product.Images[0] && (
                     <img

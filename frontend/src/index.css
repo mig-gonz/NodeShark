@@ -20,3 +20,17 @@
 a:hover {
   color: black;
 }
+
+.head {
+  /* color: #6127dc; */
+  /* background: -webkit-linear-gradient(
+    103.22deg,
+    #7b0bf3 -13.86%,
+    #ce6c38 99.55%
+  );
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -o-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; */
+}

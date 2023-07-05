@@ -3,6 +3,37 @@ import { useParams } from "react-router-dom";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 
+const SizeGuide = [
+  {
+    Size: "XS",
+    inches: "30.5",
+  },
+  {
+    Size: "S",
+    inches: "33.5",
+  },
+  {
+    Size: "M",
+    inches: "35.5",
+  },
+  {
+    Size: "L",
+    inches: "37.5",
+  },
+  {
+    Size: "XL",
+    inches: "39.5",
+  },
+  {
+    Size: "XXL",
+    inches: "41.5",
+  },
+  {
+    Size: "XXXL",
+    inches: "43.5",
+  },
+];
+
 const products = {
   name: "Basic Tee 6-Pack",
   price: "$192",
@@ -180,12 +211,38 @@ const ProductDetail = () => {
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                  <a
-                    href="#"
+                  <button
                     className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                    onClick={() => window.my_modal_4.showModal()}
                   >
                     Size guide
-                  </a>
+                  </button>
+                  <dialog id="my_modal_4" className="modal">
+                    <div
+                      method="dialog"
+                      className="modal-box w-11/12 max-w-5xl bg-white text-black"
+                    >
+                      <h3 className="font-bold text-lg">Sizes</h3>
+                      <div className="grid grid-cols-2 gap-4 py-4">
+                        <span className="font-medium">Size</span>
+                        <span className="font-medium">Inches</span>
+                        {SizeGuide.map((size, index) => (
+                          <React.Fragment key={index}>
+                            <span>{size.Size}</span>
+                            <span>{size.inches}</span>
+                          </React.Fragment>
+                        ))}
+                      </div>
+                      <div className="modal-action">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => window.my_modal_4.close()}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </dialog>
                 </div>
 
                 <RadioGroup className="mt-4">
