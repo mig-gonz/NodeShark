@@ -9,10 +9,14 @@ const Gallery = () => {
 	useEffect(() => {
 		fetch("http://localhost:9000/products")
 			.then((res) => res.json())
-			.then((data) => {
-				setProducts(data.data);
+			.then(({ data }) => {
+				setProducts(data);
 			});
 	}, []);
+
+	const latestProdcuts = products.slice(0, 8);
+	// I added this because some of the images are larger than others and it didn't look flush with the others.
+	// It only gathers the first 8 images
 
 	return (
 		<div className="bg-white mb-8 flex justify-center items-center overflow-hidden h-[750px]">
@@ -21,23 +25,27 @@ const Gallery = () => {
 					Check out our newest drops!
 				</h2>
 
+				{/* The carousel isn't formattered for mobile so we should fix that. */}
 				<Carousel
 					showThumbs={false}
 					showStatus={false}
 					centerMode={true}
-					centerSlidePercentage={38}
+					centerSlidePercentage={33.3}
 					autoPlay={true}
+					infiniteLoop={true}
 					showArrows={true}
+					showIndicators={true}
 					interval={3000}>
-					{products.map((product) => (
+					{latestProdcuts.map((product) => (
 						<div
 							key={product.id}
-							className="m-5 text-[#D0D3DB]">
+							className="m-5 p-5 text-[#9c9ea2]">
 							<Link to={`/products/${product.id}`}>
 								<div>
 									<img
 										src={product?.Images[0]?.url}
 										alt=""
+										className="h-full w-full object-cover object-center lg:h-full lg:w-full"
 									/>
 								</div>
 							</Link>
