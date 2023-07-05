@@ -9,6 +9,7 @@ import Womens from "./components/Womens";
 import AllProducts from "./components/AllProducts";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
 	return (
@@ -46,6 +47,10 @@ function App() {
 				<Route
 					path="/contact-us"
 					element={<ContactUs />}
+				/>
+				<Route
+					path="/category/:categoryName"
+					element={<CategoryPage />}
 				/>
 			</Routes>
 			<Footer />
