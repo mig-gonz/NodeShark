@@ -1,4 +1,4 @@
-import User from "./Pages/User";
+import User from "./pages/User";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./pages/Home";
