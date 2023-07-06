@@ -2,12 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  // I removed the py-16 on the outer most div, and changed the py-5 on the p element to py-2
+  const categoryNames = [
+    "Shirts",
+    "Shorts",
+    "Joggers & Sweats",
+    "Tanks & Stringers",
+    "Hoodies & Jackets",
+    "Leggings",
+    "Crop Tops",
+    "Sport Bras",
+  ];
+
   return (
-    <div className="max-w-[1240px] mx-auto  px-4 grid gap-6 lg:grid-cols-2">
+    <div className="max-w-[1240px] mx-auto py-6 px-4 grid gap-6 lg:grid-cols-2">
       <div>
         <h1 className="w-full text-3xl font-bold">NodeShark</h1>
-        <p className="py-2">
+        <p className="py-4">
           Shop your favorite styles all in one place, we offer the best from all
           of the tops brands in the industry for your workout!
         </p>
@@ -21,16 +31,25 @@ const Footer = () => {
             <Link to="/products/mens">
               <li className="text-sm py-2 pl-1">Mens</li>
             </Link>
-            <li className="text-sm py-2 pl-1">Womens</li>
-            <li className="text-sm py-2 pl-1">All Products</li>
+
+            <Link to="/products/womens">
+              <li className="text-sm py-2 pl-1">Womens</li>
+            </Link>
+            <Link to="/products/all">
+              <li className="text-sm py-2 pl-1">All Products</li>
+            </Link>
           </ul>
         </div>
         <div>
-          <h6 className="font-medium border-b border-b-gray-700 p-2">Pages</h6>
+          <h6 className="font-medium border-b border-b-gray-700 p-2">
+            Categories
+          </h6>
           <ul>
-            <li className="text-sm py-2 pl-1">About Us</li>
-            <li className="text-sm py-2 pl-1">Source Code</li>
-            <li className="text-sm py-2 pl-1">Contact Us</li>
+            {categoryNames.map((categoryName) => (
+              <Link key={categoryName} to={`/category/${categoryName}`}>
+                <li className="text-sm py-2 pl-1">{categoryName}</li>
+              </Link>
+            ))}
           </ul>
         </div>
         <div>
@@ -43,12 +62,17 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h6 className="font-medium border-b border-b-gray-700 p-2">Help</h6>
+          <h6 className="font-medium border-b border-b-gray-700 p-2">Pages</h6>
           <ul>
-            <li className="text-sm py-2 pl-1">FAQ</li>
-            <li className="text-sm py-2 pl-1">Delivery Information</li>
-            <li className="text-sm py-2 pl-1">Returns</li>
-            <li className="text-sm py-2 pl-1">Orders</li>
+            <Link to={"/about-us"}>
+              <li className="text-sm py-2 pl-1">About Us</li>
+            </Link>
+            <Link to={"/contact-us"}>
+              <li className="text-sm py-2 pl-1">Contact Us</li>
+            </Link>
+            <Link to="https://github.com/mig-gonz/NodeShark">
+              <li className="text-sm py-2 pl-1">Source Code</li>
+            </Link>
           </ul>
         </div>
       </div>

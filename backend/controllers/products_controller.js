@@ -81,6 +81,52 @@ products.get("/:id", async (req, res) => {
   }
 });
 
+products.get("/categories/:categoryName", async (req, res) => {
+  try {
+    const { categoryName } = req.params;
+
+    const findAllCategoryNameProducts = await Product.findAll({
+      attributes: [
+        "id",
+        "name",
+        "description",
+        "price",
+        "gender",
+        "categoryId",
+        "brandId",
+      ],
+      include: [
+        {
+          model: Brand,
+          attributes: ["name"],
+        },
+        {
+          model: Category,
+          where: { name: categoryName },
+          attributes: ["name"],
+        },
+        {
+          model: Sku,
+          attributes: ["color", "size", "style"],
+        },
+        {
+          model: Image,
+          attributes: ["url"],
+        },
+      ],
+    });
+
+    res.status(200).json({
+      message: `Found all products by category ${categoryName}!`,
+      data: findAllCategoryNameProducts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
 // find all product by a brandName
 products.get("/brands/:brandName", async (req, res) => {
   try {

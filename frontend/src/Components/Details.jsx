@@ -1,120 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
-
-const SizeGuide = [
-  {
-    Size: "XS",
-    inches: "30.5",
-  },
-  {
-    Size: "S",
-    inches: "33.5",
-  },
-  {
-    Size: "M",
-    inches: "35.5",
-  },
-  {
-    Size: "L",
-    inches: "37.5",
-  },
-  {
-    Size: "XL",
-    inches: "39.5",
-  },
-  {
-    Size: "XXL",
-    inches: "41.5",
-  },
-  {
-    Size: "XXXL",
-    inches: "43.5",
-  },
-];
-
-const products = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  href: "#",
-  breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
-  images: [
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
-      alt: "Two each of gray, white, and black shirts laying flat.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
-      alt: "Model wearing plain gray basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
-      alt: "Model wearing plain white basic tee.",
-    },
-  ],
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
-  sizes: [
-    { name: "XXS", inStock: false },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "2XL", inStock: true },
-    { name: "3XL", inStock: true },
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const ProductDetail = () => {
+const Details = () => {
+  const [selectedSize, setSelectedSize] = useState([]);
+
   const [product, setProduct] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    fetch(`http://localhost:5000/products/${id}`)
+    fetch(`http://localhost:9000/products/${id}`)
       .then((res) => res.json())
-      .then((data) => {
-        setProduct(data.data);
+      .then(({ data }) => {
+        setProduct(data);
       });
   }, [id]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-white">
       <div className="pt-6">
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-4 lg:px-4">
+          <div className="hidden overflow-hidden rounded-lg lg:block">
             {product && product.Images && product.Images[0] && (
               <img
                 src={product.Images[0].url}
-                alt="Product Image 1"
-                className="h-full w-full object-cover object-center"
+                alt={product.name}
+                className="h-full w-full object-cover"
               />
             )}
           </div>
@@ -123,8 +43,8 @@ const ProductDetail = () => {
               {product && product.Images && product.Images[1] && (
                 <img
                   src={product.Images[1].url}
-                  alt="Product Image 2"
-                  className="h-full w-full object-cover object-center"
+                  alt={product.name}
+                  className=" object-cover h-full w-full"
                 />
               )}
             </div>
@@ -132,8 +52,8 @@ const ProductDetail = () => {
               {product && product.Images && product.Images[2] && (
                 <img
                   src={product.Images[2].url}
-                  alt="Product Image 3"
-                  className="h-full w-full object-cover object-center"
+                  alt={product.name}
+                  className="h-full w-full object-cover"
                 />
               )}
             </div>
@@ -142,8 +62,8 @@ const ProductDetail = () => {
             {product && product.Images && product.Images[3] && (
               <img
                 src={product.Images[3].url}
-                alt="Product Image 4"
-                className="h-full w-full object-cover object-center"
+                alt={product.name}
+                className="h-full w-full object-cover"
               />
             )}
           </div>
@@ -211,107 +131,87 @@ const ProductDetail = () => {
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                  <button
+                  <a
+                    href="#"
                     className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                    onClick={() => window.my_modal_4.showModal()}
                   >
                     Size guide
-                  </button>
-                  <dialog id="my_modal_4" className="modal">
-                    <div
-                      method="dialog"
-                      className="modal-box w-11/12 max-w-5xl bg-white text-black"
-                    >
-                      <h3 className="font-bold text-lg">Sizes</h3>
-                      <div className="grid grid-cols-2 gap-4 py-4">
-                        <span className="font-medium">Size</span>
-                        <span className="font-medium">Inches</span>
-                        {SizeGuide.map((size, index) => (
-                          <React.Fragment key={index}>
-                            <span>{size.Size}</span>
-                            <span>{size.inches}</span>
-                          </React.Fragment>
-                        ))}
-                      </div>
-                      <div className="modal-action">
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => window.my_modal_4.close()}
-                        >
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </dialog>
+                  </a>
                 </div>
 
-                <RadioGroup className="mt-4">
+                <RadioGroup
+                  value={selectedSize}
+                  onChange={setSelectedSize}
+                  className="mt-4"
+                >
                   <RadioGroup.Label className="sr-only">
                     Choose a size
                   </RadioGroup.Label>
                   <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                    {product.Skus &&
-                      product.Skus.map((sku) => {
-                        // console.log(sku.id);
-                        return (
-                          <RadioGroup.Option
-                            key={`${sku.color}-${sku.size}`}
-                            value={sku.size}
-                            className={({ active }) =>
-                              classNames(
-                                sku.size
-                                  ? "cursor-pointer bg-white text-gray-900 shadow-sm"
-                                  : "cursor-not-allowed bg-gray-50 text-gray-200",
-                                active ? "ring-2 ring-indigo-500" : "",
-                                "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
-                              )
-                            }
-                          >
-                            {({ active, checked }) => (
-                              <>
-                                <RadioGroup.Label as="span">
-                                  {sku.size}
-                                </RadioGroup.Label>
-                                {sku.size ? (
-                                  <span
-                                    className={classNames(
-                                      active ? "border" : "border-2",
-                                      checked
-                                        ? "border-indigo-500"
-                                        : "border-transparent",
-                                      "pointer-events-none absolute -inset-px rounded-md"
-                                    )}
-                                    aria-hidden="true"
-                                  />
-                                ) : (
-                                  <span
-                                    aria-hidden="true"
-                                    className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                    {product?.Skus &&
+                      product?.Skus?.filter(
+                        (sku, index, self) =>
+                          self.findIndex((s) => s.size === sku.size) === index
+                      ).map((sku) => (
+                        <RadioGroup.Option
+                          key={sku.size}
+                          value={sku.size}
+                          // disabled={!sku.size.inStock}
+                          className={({ active }) =>
+                            classNames(
+                              sku.size
+                                ? "cursor-pointer bg-white text-gray-900 shadow-sm"
+                                : "cursor-not-allowed bg-gray-50 text-gray-200",
+                              active ? "ring-2 ring-indigo-500" : "",
+                              "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
+                            )
+                          }
+                        >
+                          {({ active, checked }) => (
+                            <>
+                              <RadioGroup.Label as="span">
+                                {sku.size}
+                              </RadioGroup.Label>
+                              {sku.size ? (
+                                <span
+                                  className={classNames(
+                                    active ? "border" : "border-2",
+                                    checked
+                                      ? "border-indigo-500"
+                                      : "border-transparent",
+                                    "pointer-events-none absolute -inset-px rounded-md"
+                                  )}
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <span
+                                  aria-hidden="true"
+                                  className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                                >
+                                  <svg
+                                    className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                                    viewBox="0 0 100 100"
+                                    preserveAspectRatio="none"
+                                    stroke="currentColor"
                                   >
-                                    <svg
-                                      className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                      viewBox="0 0 100 100"
-                                      preserveAspectRatio="none"
-                                      stroke="currentColor"
-                                    >
-                                      <line
-                                        x1={0}
-                                        y1={100}
-                                        x2={100}
-                                        y2={0}
-                                        vectorEffect="non-scaling-stroke"
-                                      />
-                                    </svg>
-                                  </span>
-                                )}
-                              </>
-                            )}
-                          </RadioGroup.Option>
-                        );
-                      })}
+                                    <line
+                                      x1={0}
+                                      y1={100}
+                                      x2={100}
+                                      y2={0}
+                                      vectorEffect="non-scaling-stroke"
+                                    />
+                                  </svg>
+                                </span>
+                              )}
+                            </>
+                          )}
+                        </RadioGroup.Option>
+                      ))}
                   </div>
                 </RadioGroup>
               </div>
+
               <button
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -338,4 +238,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default Details;

@@ -1,35 +1,39 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Women = () => {
+const Mens = () => {
   const [products, setProducts] = useState([]);
 
-  const URL = "http://localhost:5000/products";
-
   useEffect(() => {
-    fetch(URL)
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.data);
-      });
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("http://localhost:9000/products");
+        const { data } = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
-  // Filter female products
-  const femaleProducts = products.filter(
-    (product) => product.gender === "female"
-  );
+  const maleProducts = products.filter((product) => product.gender === "male");
 
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
+        <h3 className="text-2xl font-bold tracking-tight text-gray-900 mb-4">
+          Mens Products
+        </h3>
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {femaleProducts.map((product) => (
-            <React.Fragment key={product.id}>
-              <Link to={`/details/${product.id}`} className="group">
+          {maleProducts.map((product) => (
+            <div key={product.id} className="group">
+              <Link to={`/products/${product.id}`}>
                 <div className="group-hover:opacity-75 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                  {product && product.Images && product.Images[0] && (
+                  {product.Images?.[0]?.url && (
                     <img
                       src={product.Images[0].url}
                       alt={product.name}
@@ -39,10 +43,10 @@ const Women = () => {
                 </div>
                 <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
                 <p className="mt-1 text-lg font-medium text-gray-900">
-                  {`$${product.price}`}
+                  ${product.price}
                 </p>
               </Link>
-            </React.Fragment>
+            </div>
           ))}
         </div>
       </div>
@@ -50,4 +54,4 @@ const Women = () => {
   );
 };
 
-export default Women;
+export default Mens;

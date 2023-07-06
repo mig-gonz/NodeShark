@@ -1,14 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import User from "./pages/User";
-import Login from "./components/Login";
-import Register from "./components/Register";
 import Home from "./pages/Home";
+import User from "./pages/User";
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Details from "./components/Details";
-import ViewAll from "./pages/ViewAll";
-import Footer from "./components/Footer";
-import Women from "./components/Women";
-import Men from "./components/Men";
+import Mens from "./components/Mens";
+import Womens from "./components/Womens";
+import AllProducts from "./components/AllProducts";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (
@@ -16,13 +17,14 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/details/:id" element={<Details />} />
-        <Route path="/viewall" element={<ViewAll />} />
-        <Route path="/women" element={<Women />} />
-        <Route path="/men" element={<Men />} />
+        <Route path="/products/:id" element={<Details />} />
         <Route path="/user" element={<User />} />
-        <Route path="/user/login" element={<Login />} />
-        <Route path="/user/register" element={<Register />} />
+        <Route path="/products/mens" element={<Mens />} />
+        <Route path="/products/womens" element={<Womens />} />
+        <Route path="/products/all" element={<AllProducts />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/category/:categoryName" element={<CategoryPage />} />
       </Routes>
       <Footer />
     </Router>
