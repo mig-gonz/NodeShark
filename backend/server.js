@@ -4,6 +4,7 @@ const { connectToDB } = require('./database');
 const cors = require('cors')
 dotenv.config();
 const app = express();
+const defineCurrentUser = require('./middleware/defineCurrentUser')
 
 // connect to database
 connectToDB();
@@ -19,6 +20,7 @@ app.use(cors())
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(defineCurrentUser);
 
 // Routes
 app.use('/products', productsController);
