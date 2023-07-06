@@ -22,23 +22,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/products", productsController);
 
 app.get("/", (req, res) => {
-  try {
-    res.status(200).send({
-      message: "Hello World!",
-    });
-  } catch (error) {
-    res.status(500).send({
-      message: error.message,
-    });
-  }
+	try {
+		res.status(200).send({
+			message: "Hello World!",
+		});
+	} catch (error) {
+		res.status(500).send({
+			message: error.message,
+		});
+	}
 });
 
 app.use("*", (req, res) => {
-  res.status(404).send({
-    message: "Not found",
-  });
+	res.status(404).send({
+		message: "Not found",
+	});
 });
 
 app.listen(process.env.PORT, () => {
-  console.log({ message: `Listening on port: ${process.env.PORT}` });
+	console.log({ message: `Listening on port: ${process.env.PORT}` });
 });
