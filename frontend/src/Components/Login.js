@@ -17,7 +17,7 @@ function Login() {
     
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await fetch('http://localhost:9000/user/login', {
+        const response = await fetch('http://localhost:9000/authentication/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -29,14 +29,27 @@ function Login() {
 
         if (response.status === 200) {
             setCurrentUser(data.user)
+            console.log(data.token)
+            localStorage.setItem('token', data.token)
             navigate('/')
         } else {
             setErrorMessage(data.message)
         }
     }
+
     return (
         <div>
             <img class="brand-img" src="https://images.unsplash.com/photo-1610969524113-bae462bb3892?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGF0aGxldGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"/>
+            <h1 class="block text-3xl font-semibold text-center my-auto form-title">Login</h1>
+            {errorMessage !== null
+                ? (
+                    <div className="alert alert-danger" role="alert">
+                        {errorMessage}
+                    </div>
+                )
+                : null
+            }
+
             <div class="form-container">
                 <div class="block max-w-sm rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(85,85,85,0.8),0_10px_20px_-2px_rgba(85,85,85,0.8)] dark:bg-neutral-700">
                     <form onSubmit={handleSubmit}>
@@ -46,6 +59,8 @@ function Login() {
                                 type="email"
                                 class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                                 placeholder="Enter email"
+                                value={credentials.email}
+							    onChange={e => setCredentials({ ...credentials, email: e.target.value })}
                             />
                             <label
                                 class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
@@ -58,6 +73,8 @@ function Login() {
                                 type="password"
                                 class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                                 placeholder="Password" 
+                                value={credentials.password}
+                                onChange={e => setCredentials({ ...credentials, password: e.target.value })}
                             />
                             <label
                                 class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"

@@ -11,7 +11,7 @@ const Homepage = () => {
                     <div className="max-w-md">
                         <h1 className="mb-5 text-5xl font-bold">NodeShark</h1>
                         <p className="mb-5">Best activewear in the US.</p>
-                        <Link to="/user/login" className="btn btn-primary">
+                        <Link to="/authentication" className="btn btn-primary">
                             <button className="btn btn-primary">Get Started</button>
                         </Link>
                     </div>

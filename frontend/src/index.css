@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.form-title{
+    padding-top: 10px;
+}
 .form-container{
     display: flex;
-    padding-top: 100px;
+    padding-top: 55px;
     justify-content: center;
 }
 

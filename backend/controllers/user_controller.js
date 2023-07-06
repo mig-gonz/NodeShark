@@ -17,7 +17,7 @@ user.post('/register', async (req, res) => {
 })
 
 //Login-Authenticate User
-user.post('/login', async (req, res) => {
+/* user.post('/login', async (req, res) => {
     let user = await User.findOne({
         where: { email: req.body.email }
     })
@@ -29,7 +29,7 @@ user.post('/login', async (req, res) => {
     } else {
         res.json({ user })
     }
-})
+}) */
 
 
 module.exports = user

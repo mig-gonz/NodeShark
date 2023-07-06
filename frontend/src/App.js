@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div>
+    <main>
       <CurrentUserProvider>
         <Router>
           <Routes>
@@ -22,7 +22,7 @@ function App() {
               element={<Homepage />}
             />
             <Route
-                path="/user/login"
+                path="/authentication"
                 element={<Login />}
             /> 
             <Route
@@ -32,7 +32,7 @@ function App() {
           </Routes>
         </Router>
       </CurrentUserProvider>
-    </div>
+    </main>
   )
 }
 
