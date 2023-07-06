@@ -14,7 +14,7 @@ function Register(props) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await fetch("http://localhost:9000/user", {
+    await fetch("http://localhost:5000/user/register", {
       method: "POST",
       mode: "cors",
       headers: {
