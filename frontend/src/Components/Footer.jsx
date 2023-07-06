@@ -68,11 +68,11 @@ const Footer = () => {
 						<Link to={"/about-us"}>
 							<li className="text-sm py-2 pl-1">About Us</li>
 						</Link>
-						<Link to="https://github.com/mig-gonz/NodeShark">
-							<li className="text-sm py-2 pl-1">Source Code</li>
-						</Link>
 						<Link to={"/contact-us"}>
 							<li className="text-sm py-2 pl-1">Contact Us</li>
+						</Link>
+						<Link to="https://github.com/mig-gonz/NodeShark">
+							<li className="text-sm py-2 pl-1">Source Code</li>
 						</Link>
 					</ul>
 				</div>
