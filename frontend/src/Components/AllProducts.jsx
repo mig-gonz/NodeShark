@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AdBanner from "../components/AdBanner";
+import AdBanner from "./AdBanner";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
