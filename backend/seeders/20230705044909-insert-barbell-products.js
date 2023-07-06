@@ -12,9 +12,6 @@ module.exports = {
 				categoryId: 1, // shirts
 				price: 36.0,
 				brandId: 4,
-				// black
-				// storm
-				// althetic fit
 			},
 			{
 				name: "Phantom Shorts",
@@ -24,9 +21,6 @@ module.exports = {
 				categoryId: 2, // shorts
 				price: 59.0,
 				brandId: 4,
-				// blackout
-				// woodland
-				// regular fit
 			},
 			{
 				name: "Recon Joggers",
@@ -36,9 +30,6 @@ module.exports = {
 				categoryId: 3, // joggers & sweats
 				price: 43.0,
 				brandId: 4,
-				// slate
-				// woodland
-				// regular fit
 			},
 			{
 				name: "Ultra Drop Tank",
@@ -48,9 +39,6 @@ module.exports = {
 				categoryId: 4, // tanks & stringers
 				price: 37.0,
 				brandId: 4,
-				// black
-				// ember
-				// slim fit
 			},
 			{
 				name: "Stealh Hoodie",
@@ -60,9 +48,6 @@ module.exports = {
 				categoryId: 5, // hoodies & jackets
 				price: 0,
 				brandId: 4,
-				// charcoal
-				// navy
-				// slim fit
 			},
 
 			// Female Products
@@ -74,9 +59,6 @@ module.exports = {
 				categoryId: 1, // shirts
 				price: 35.0,
 				brandId: 4,
-				// black
-				// gray
-				// regular fit
 			},
 			{
 				name: "Sunrise Runner Shorts",
@@ -86,9 +68,6 @@ module.exports = {
 				categoryId: 2, // shorts
 				price: 24.0,
 				brandId: 4,
-				// Meadow
-				// Iris
-				// High waisted
 			},
 			{
 				name: "Contour Joggers",
@@ -98,9 +77,6 @@ module.exports = {
 				categoryId: 3, // joggers & sweats
 				price: 53,
 				brandId: 4,
-				// Cadet
-				// Rifle
-				// High rise
 			},
 			{
 				name: "Calm Pullover",
@@ -110,9 +86,6 @@ module.exports = {
 				categoryId: 5, // hoodies & jackets
 				price: 40,
 				brandId: 4,
-				// Black
-				// Gray
-				// Regular fit
 			},
 			{
 				name: "Barbell Leggings",
@@ -122,9 +95,6 @@ module.exports = {
 				categoryId: 6, // leggings
 				price: 45.0,
 				brandId: 4,
-				// Static Gray
-				// Harmony Blue
-				// High waisted
 			},
 			{
 				name: "Barbell Crop Top",
@@ -134,8 +104,6 @@ module.exports = {
 				categoryId: 7, // crop tops
 				price: 20,
 				brandId: 4,
-				// Heather Gray
-				// olive
 			},
 			{
 				name: "Vented Sports Bra",
@@ -145,8 +113,6 @@ module.exports = {
 				categoryId: 8, // sport bras
 				price: 43.0,
 				brandId: 4,
-				// Maroon
-				// Jewel Blue
 			},
 		]);
 	},
