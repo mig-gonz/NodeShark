@@ -108,7 +108,7 @@ module.exports = {
 					"Sometimes you just want calm vibes. Our cozy, incredibly soft Calm Pullover is the perfect shirt to throw on after a tough workout or any other time you need to relax and recover. Designed with our all purpose flex fabric - you'll want to live in this do-it-all pullover.",
 				gender: "female",
 				categoryId: 5, // hoodies & jackets
-				price: 0,
+				price: 40,
 				brandId: 4,
 				// Black
 				// Gray
@@ -132,7 +132,7 @@ module.exports = {
 					"The logo that started it all. Show 'em what you're all about with the Barbell Crop Top. With a flawless mid rise crop, and designed with our super soft poly-blend fabric, this is one tee you don't wanna miss.",
 				gender: "female",
 				categoryId: 7, // crop tops
-				price: 0,
+				price: 20,
 				brandId: 4,
 				// Heather Gray
 				// olive
