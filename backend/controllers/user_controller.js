@@ -4,6 +4,19 @@ const db = require("../models");
 const bcrypt = require("bcrypt");
 const { User } = db;
 
+user.get("/profile", async (req, res) => {
+  try {
+    let user = await User.findOne({
+      where: {
+        userId: req.user.userId,
+      },
+    });
+    res.json(user);
+  } catch {
+    res.json(null);
+  }
+});
+
 //Register User
 user.post("/register", async (req, res) => {
   let { password, ...rest } = req.body;
