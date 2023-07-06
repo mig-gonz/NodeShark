@@ -62,7 +62,7 @@ const Gallery = () => {
                   <div>
                     <img
                       src={product?.Images[0]?.url}
-                      alt=""
+                      alt={product.name}
                       className="h-96 w-full object-cover object-center lg:h-full lg:w-full"
                     />
                   </div>
@@ -96,7 +96,7 @@ const Gallery = () => {
                   <div>
                     <img
                       src={product?.Images[0]?.url}
-                      alt=""
+                      alt={product.name}
                       className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                     />
                   </div>
