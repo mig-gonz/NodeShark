@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home";
-import User from "./Pages/User";
+import Home from "./pages/Home";
+import User from "./pages/User";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Details from "./components/Details";
 import Mens from "./components/Mens";
 import Womens from "./components/Womens";
 import AllProducts from "./components/AllProducts";
-import AboutUs from "./Pages/AboutUs";
-import ContactUs from "./Pages/ContactUs";
-import CategoryPage from "./Pages/CategoryPage";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (
