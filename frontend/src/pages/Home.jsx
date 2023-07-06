@@ -1,4 +1,5 @@
 import Hero from "../components/Hero";
+import BotHero from "../components/botHero";
 import ProductGallery from "../components/ProductGallery";
 import React, { useState, useEffect } from "react";
 
@@ -22,6 +23,7 @@ const Home = () => {
     <div>
       <Hero />
       <ProductGallery products={products} />
+      <BotHero />
     </div>
   );
 };
