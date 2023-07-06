@@ -18,9 +18,7 @@ const Mens = () => {
 		fetchProducts();
 	}, []);
 
-	const maleProducts = products.filter(
-		(product) => product.gender === "male" || product.gender === "unisex"
-	);
+	const maleProducts = products.filter((product) => product.gender === "male");
 
 	return (
 		<div className="bg-white">

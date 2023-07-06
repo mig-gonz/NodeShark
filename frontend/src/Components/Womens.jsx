@@ -19,7 +19,7 @@ const Womens = () => {
 	}, []);
 
 	const womenProducts = products.filter(
-		(product) => product.gender === "female" || product.gender === "unisex"
+		(product) => product.gender === "female"
 	);
 
 	return (
