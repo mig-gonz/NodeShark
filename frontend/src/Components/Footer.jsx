@@ -31,6 +31,7 @@ const Footer = () => {
 						<Link to="/products/mens">
 							<li className="text-sm py-2 pl-1">Mens</li>
 						</Link>
+
 						<Link to="/products/womens">
 							<li className="text-sm py-2 pl-1">Womens</li>
 						</Link>

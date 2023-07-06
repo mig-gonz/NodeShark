@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.form-container {
+/* .form-container {
   display: flex;
   padding-top: 100px;
   justify-content: center;
@@ -19,4 +19,4 @@
 
 a:hover {
   color: black;
-}
+} */
