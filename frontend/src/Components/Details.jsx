@@ -1,79 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
-
-const products = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  href: "#",
-  breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
-  images: [
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
-      alt: "Two each of gray, white, and black shirts laying flat.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
-      alt: "Model wearing plain gray basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
-      alt: "Model wearing plain white basic tee.",
-    },
-  ],
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
-  sizes: [
-    { name: "XXS", inStock: false },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "2XL", inStock: true },
-    { name: "3XL", inStock: true },
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-};
-
-const reviews = { href: "#", average: 4, totalCount: 117 };
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const ProductDetail = () => {
-  const [selectedSize, setSelectedSize] = useState(products.sizes[2]);
+const Details = () => {
+  const [selectedSize, setSelectedSize] = useState([]);
 
   const [product, setProduct] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProduct(data.data);
-      });
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`http://localhost:9000/products/${id}`);
+        const { data } = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
   }, [id]);
 
   if (!product) {
@@ -84,13 +33,13 @@ const ProductDetail = () => {
     <div className="bg-white">
       <div className="pt-6">
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-4 lg:px-4">
+          <div className="hidden overflow-hidden rounded-lg lg:block">
             {product && product.Images && product.Images[0] && (
               <img
                 src={product.Images[0].url}
-                alt="Product Image 1"
-                className="h-full w-full object-cover object-center"
+                alt={product.name}
+                className="h-full w-full object-cover"
               />
             )}
           </div>
@@ -99,8 +48,8 @@ const ProductDetail = () => {
               {product && product.Images && product.Images[1] && (
                 <img
                   src={product.Images[1].url}
-                  alt="Product Image 2"
-                  className="h-full w-full object-cover object-center"
+                  alt={product.name}
+                  className=" object-cover h-full w-full"
                 />
               )}
             </div>
@@ -108,8 +57,8 @@ const ProductDetail = () => {
               {product && product.Images && product.Images[2] && (
                 <img
                   src={product.Images[2].url}
-                  alt="Product Image 3"
-                  className="h-full w-full object-cover object-center"
+                  alt={product.name}
+                  className="h-full w-full object-cover"
                 />
               )}
             </div>
@@ -118,8 +67,8 @@ const ProductDetail = () => {
             {product && product.Images && product.Images[3] && (
               <img
                 src={product.Images[3].url}
-                alt="Product Image 4"
-                className="h-full w-full object-cover object-center"
+                alt={product.name}
+                className="h-full w-full object-cover"
               />
             )}
           </div>
@@ -188,7 +137,9 @@ const ProductDetail = () => {
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
                   <a
-                    href="#"
+                    href="https://www.universalstandard.com/pages/size-guides"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Size guide
@@ -204,8 +155,11 @@ const ProductDetail = () => {
                     Choose a size
                   </RadioGroup.Label>
                   <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                    {product.Skus &&
-                      product.Skus.map((sku) => (
+                    {product?.Skus &&
+                      product?.Skus?.filter(
+                        (sku, index, self) =>
+                          self.findIndex((s) => s.size === sku.size) === index
+                      ).map((sku) => (
                         <RadioGroup.Option
                           key={sku.size}
                           value={sku.size}
@@ -291,4 +245,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default Details;
