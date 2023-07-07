@@ -13,17 +13,17 @@ import CategoryPage from "./pages/CategoryPage";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { CurrentUserProvider } from "./contexts/CurrentUser";
-import HomePage from "./components";
+
 
 function App() {
   // keep lower case page and components dir
+
   return (
     <CurrentUserProvider>
       <Router>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/" element={<HomePage />} />
           <Route path="/products/:id" element={<Details />} />
           <Route path="/user" element={<User />} />
           <Route path="/user/login" element={<Login />} />
@@ -37,6 +37,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
+
     </CurrentUserProvider>
   );
 }

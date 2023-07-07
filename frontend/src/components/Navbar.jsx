@@ -7,6 +7,8 @@ import {
 	XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import {useContext} from 'react'
+import CurrentUser from '../contexts/CurrentUser';
 
 const navigation = {
 	categories: [
@@ -142,7 +144,58 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
+
+
 const NavBar = () => {
+
+	const { currentUser } = useContext(CurrentUser)
+	function logout() {
+		localStorage.removeItem("token");
+		window.location.reload();
+	}
+	
+
+	let loginActions = (
+		<div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+			<Link
+				to="/user/login"
+				className="text-sm font-medium text-gray-700 hover:text-gray-800">
+				Sign in
+			</Link>
+			<span
+				className="h-6 w-px bg-gray-200"
+				aria-hidden="true"
+			/>
+			<Link
+				to="/user/register"
+				className="text-sm font-medium text-gray-700 hover:text-gray-800"
+			>
+				Create account
+			</Link>
+		</div>
+	)
+
+
+	if (currentUser) {
+		loginActions = (
+			<div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+				<p className="text-sm font-medium text-gray-700 hover:text-gray-800">
+					Welcome {currentUser.firstName}!
+				</p>
+				<span
+					className="h-6 w-px bg-gray-200"
+					aria-hidden="true"
+				/>
+				<Link
+					to="/"
+					className="text-sm font-medium text-gray-700 hover:text-gray-800"
+					onClick={()=> logout()}>
+					Logout
+				</Link>
+			</div>
+		)
+	}
+
 	const [open, setOpen] = useState(false);
 	const [products, setProducts] = useState([]);
 
@@ -232,22 +285,7 @@ const NavBar = () => {
 									</div>
 								</div>
 
-								<div className="space-y-6 border-t border-gray-200 px-4 py-6">
-									<div className="flow-root">
-										<Link
-											to="/user/login"
-											className="-m-2 block p-2 font-medium text-gray-900">
-											Sign in
-										</Link>
-									</div>
-									<div className="flow-root">
-										<Link
-											to="/user/register"
-											className="-m-2 block p-2 font-medium text-gray-900">
-											Create account
-										</Link>
-									</div>
-								</div>
+								{loginActions}
 							</Dialog.Panel>
 						</Transition.Child>
 					</div>
@@ -308,22 +346,7 @@ const NavBar = () => {
 								</div>
 							</div>
 							<div className="ml-auto flex items-center">
-								<div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-									<Link
-										to="/user/login"
-										className="text-sm font-medium text-gray-700 hover:text-gray-800">
-										Sign in
-									</Link>
-									<span
-										className="h-6 w-px bg-gray-200"
-										aria-hidden="true"
-									/>
-									<Link
-										to="/user/register"
-										className="text-sm font-medium text-gray-700 hover:text-gray-800">
-										Create account
-									</Link>
-								</div>
+								{loginActions}
 								{/* currency */}
 								{/*
                 <div className="hidden lg:ml-8 lg:flex">
