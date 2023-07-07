@@ -12,6 +12,7 @@ authentication.post("/", async (req, res) => {
       email: req.body.email,
     },
   });
+  res.set('Access-Control-Allow-Origin', '*');
 
   if (
     !user ||
@@ -32,6 +33,7 @@ authentication.get("/profile", async (req, res) => {
   try {
     // Split the authorization header into [ "Bearer", "TOKEN" ]:
     const [authenticationMethod, token] = req.headers.authorization.split(" ");
+    res.set('Access-Control-Allow-Origin', '*');
 
     // Only handle "Bearer" authorization for now
     //  (we could add other authorization strategies later):
