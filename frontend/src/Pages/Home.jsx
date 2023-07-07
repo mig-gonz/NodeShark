@@ -1,7 +1,7 @@
 import React from "react";
 import Gallery from "../components/Gallery";
 import Hero from "../components/Hero";
-import BotHero from "../components/BotHero";
+import BotHero from "../components/botHero";
 
 const Home = () => {
 	return (
