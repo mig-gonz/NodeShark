@@ -23,3 +23,17 @@
 a:hover {
   color: black;
 }
+
+.main-title {
+  font-family: cursive;
+  background: -webkit-linear-gradient(
+    103.22deg,
+    #f10030 -13.86%,
+    #5920ed 99.55%
+  );
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -o-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
