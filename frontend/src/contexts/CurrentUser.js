@@ -6,6 +6,7 @@ export const CurrentUser = createContext()
 function CurrentUserProvider({ children }){
 
     const [currentUser, setCurrentUser] = useState(null)
+    window.setCurrentUser = setCurrentUser
 
     useEffect(() => {
         const getLoggedInUser = async () => {

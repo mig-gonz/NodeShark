@@ -8,6 +8,7 @@ function Login() {
 
     const { setCurrentUser } = useContext(CurrentUser)
 
+
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
@@ -102,14 +103,3 @@ function Login() {
     );
 }
 export default Login;
-
-{/* <div class = "body">
-            <div class="alert-box">msg</div>
-            <div class="form">
-                <h1 class="heading">Login</h1>
-                <input type="email" placeholder="email" autocomplete="off" class="email" required></input>
-                <input type="password" placeholder="password" autocomplete="off" class="pass" required></input>
-                <button class="submit-btn">Login</button>
-                <Link to ="/user/register" class="link">Don't have an account? Register here.</Link>
-            </div>
-        </div> */}

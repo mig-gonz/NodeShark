@@ -10,15 +10,25 @@ const Homepage = () => {
     const { currentUser } = useContext(CurrentUser);
 
     let loginActions = (
-        <div>
-        </div>
+        <>
+            <li style={{ float: 'right' }}>
+                <a href="#" onClick={() => navigate("/sign-up")}>
+                    Sign Up
+                </a>
+            </li>
+            <li style={{ float: 'right' }}>
+                <a href="#" onClick={() => navigate("/login")}>
+                    Login
+                </a>
+            </li>
+        </>
     )
 
     if (currentUser) {
         loginActions = (
-            <h1 style={{ float: 'right' }}>
+            <li style={{ float: 'right' }}>
                 Logged in as {currentUser.firstName} {currentUser.lastName}
-            </h1>
+            </li>
         )
     }
 
@@ -32,6 +42,9 @@ const Homepage = () => {
                         <p className="mb-5">Best activewear in the US.</p>
                         <Link to="/authentication" className="btn btn-primary">
                             <button className="btn btn-primary">Get Started</button>
+                        </Link>
+                        <Link to="/wishlist" className="btn btn-secondary">
+                            <button className="btn btn-secondary">Wishlist</button>
                         </Link>
                         {loginActions}
                     </div>
