@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { RadioGroup } from "@headlessui/react";
+import { useContext } from "react";
+import CurrentUser from "../contexts/CurrentUser";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -8,9 +10,11 @@ function classNames(...classes) {
 
 const Details = () => {
   const [selectedSize, setSelectedSize] = useState([]);
-
   const [product, setProduct] = useState([]);
   const { id } = useParams();
+  const { currentUser } = useContext(CurrentUser);
+
+  // console.log(currentUser);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -28,6 +32,30 @@ const Details = () => {
   if (!product) {
     return <div>Loading...</div>;
   }
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("http://localhost:9000/wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          skuId: product.skuId, // Replace with the actual product SKU
+          userId: currentUser.Id, // Replace with the actual user ID
+        }),
+      });
+
+      if (response.ok) {
+        // Item added to wishlist successfully
+        console.log("Item added to wishlist");
+      } else {
+        console.error("Failed to add item to wishlist");
+      }
+    } catch (error) {
+      console.error("Error adding item to wishlist:", error);
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -222,6 +250,7 @@ const Details = () => {
               <button
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={handleSubmit}
               >
                 Add to bag
               </button>

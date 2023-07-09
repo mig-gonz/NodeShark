@@ -23,7 +23,7 @@ function Register() {
       body: JSON.stringify(user),
     });
 
-    navigate("/");
+    navigate("/user/login");
   }
 
   return (
