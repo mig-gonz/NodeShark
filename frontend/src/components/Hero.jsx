@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "../index.css";
 
 function Hero() {
   return (
@@ -6,13 +8,16 @@ function Hero() {
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content ">
         <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold">NODE SHARK</h1>
+          <h1 className="main-title mb-5 text-5xl font-bold">NODE SHARK</h1>
           <p className="mb-5">
             Giving software devs the best experience during their physical and
             mental workouts. Whether you're coding a marathon or running one,
             we've got you covered.
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <span className="mr-1">Get Started:</span>
+          <Link to="/user/login">
+            <button className="btn btn-primary">Create an account now</button>
+          </Link>
         </div>
       </div>
     </div>

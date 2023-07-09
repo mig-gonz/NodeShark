@@ -4,13 +4,13 @@ import Hero from "../components/Hero";
 import BotHero from "../components/botHero";
 
 const Home = () => {
-	return (
-		<div>
-			<Hero />
-			<Gallery />
-			<BotHero />
-		</div>
-	);
+  return (
+    <div>
+      <Hero />
+      <Gallery />
+      <BotHero />
+    </div>
+  );
 };
 
 export default Home;
