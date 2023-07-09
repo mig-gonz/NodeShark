@@ -393,112 +393,12 @@ module.exports = {
 		]);
 	},
 
-      {
-        color: "Linen",
-        size: "S",
-        style: "High-waisted",
-        productId: 7,
-      },
-      {
-        color: "Linen",
-        size: "M",
-        style: "High-waisted",
-        productId: 7,
-      },
-      {
-        color: "Linen",
-        size: "L",
-        style: "High-waisted",
-        productId: 7,
-      },
-      {
-        color: "Linen",
-        size: "XL",
-        style: "High-waisted",
-        productId: 7,
-      },
-      {
-        color: "Oyster Grey",
-        size: "S",
-        style: "High-waisted",
-        productId: 7,
-      },
-      {
-        color: "Oyster Grey",
-        size: "M",
-        style: "High-waisted",
-        productId: 7,
-      },
-      {
-        color: "Oyster Grey",
-        size: "L",
-        style: "High-waisted",
-        productId: 7,
-      },
-      {
-        color: "Oyster Grey",
-        size: "XL",
-        style: "High-waisted",
-        productId: 7,
-      },
-
-      {
-        color: "Electric Purple",
-        size: "S",
-        style: "High-waisted",
-        productId: 8,
-      },
-      {
-        color: "Electric Purple",
-        size: "M",
-        style: "High-waisted",
-        productId: 8,
-      },
-      {
-        color: "Electric Purple",
-        size: "L",
-        style: "High-waisted",
-        productId: 8,
-      },
-      {
-        color: "Electric Purple",
-        size: "XL",
-        style: "High-waisted",
-        productId: 8,
-      },
-      {
-        color: "Emerald Green",
-        size: "S",
-        style: "High-waisted",
-        productId: 8,
-      },
-      {
-        color: "Emerald Green",
-        size: "M",
-        style: "High-waisted",
-        productId: 8,
-      },
-      {
-        color: "Emerald Green",
-        size: "L",
-        style: "High-waisted",
-        productId: 8,
-      },
-      {
-        color: "Emerald Green",
-        size: "XL",
-        style: "High-waisted",
-        productId: 8,
-      },
-    ]);
-  },
-
-  async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  },
+	async down(queryInterface, Sequelize) {
+		/**
+		 * Add commands to revert seed here.
+		 *
+		 * Example:
+		 * await queryInterface.bulkDelete('People', null, {});
+		 */
+	},
 };
