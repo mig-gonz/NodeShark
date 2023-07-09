@@ -62,7 +62,7 @@ function Login() {
       setCurrentUser(data.user);
       localStorage.setItem("token", data.token);
       console.log("Token added to local storage:", data.token);
-      navigate("/user/login");
+      navigate("/");
     } else {
       setErrorMessage(data.message);
     }
@@ -72,6 +72,7 @@ function Login() {
     <div>
       <img
         className="brand-img"
+        alt="logo"
         src="https://images.unsplash.com/photo-1610969524113-bae462bb3892?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGF0aGxldGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
       />
       <h1 className="block text-3xl font-semibold text-center my-auto form-title">
@@ -144,16 +145,3 @@ function Login() {
   );
 }
 export default Login;
-
-{
-  /* <div className = "body">
-            <div className="alert-box">msg</div>
-            <div className="form">
-                <h1 className="heading">Login</h1>
-                <input type="email" placeholder="email" autocomplete="off" className="email" required></input>
-                <input type="password" placeholder="password" autocomplete="off" className="pass" required></input>
-                <button className="submit-btn">Login</button>
-                <Link to ="/user/register" className="link">Don't have an account? Register here.</Link>
-            </div>
-        </div> */
-}
