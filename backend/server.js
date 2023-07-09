@@ -4,6 +4,7 @@ const { connectToDB } = require("./database");
 const cors = require("cors");
 dotenv.config();
 const app = express();
+const path = require("path");
 const defineCurrentUser = require("./middleware/defineCurrentUser");
 
 // connect to database
@@ -29,6 +30,10 @@ app.use("/user", userController);
 app.use("/authentication", authenticationController);
 app.use("/wishlist", wishlistController);
 
+// serve static front end in production mode
+
+app.use(express.static(path.join(__dirname, "./public/build")));
+
 app.get("/", (req, res) => {
   try {
     res.status(200).send({
@@ -41,12 +46,10 @@ app.get("/", (req, res) => {
   }
 });
 
-app.use("*", (req, res) => {
-  res.status(404).send({
-    message: "Not found",
-  });
-});
-
 app.listen(process.env.PORT, () => {
   console.log({ message: `Listening on port: ${process.env.PORT}` });
+});
+
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/build", "index.html"));
 });

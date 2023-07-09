@@ -30,7 +30,7 @@ authentication.post("/", async (req, res) => {
     const result = await jwt.sign({ id: user.userId }, process.env.JWT_SECRET);
 
     console.log("Generated token:", result);
-    res.json({ user: user, token: result }); // Add this line to include the token in the response
+    res.json({ user: user, token: result });
   }
 });
 
