@@ -16,7 +16,10 @@ export function CurrentUserProvider({ children }) {
         }
       );
       let user = await response.json();
-      setCurrentUser(user);
+      const setCurrentUser = (user) => {
+        console.log("Setting currentUser:", user);
+        setCurrentUser(user);
+      };
     };
     getLoggedInUser();
   }, []);

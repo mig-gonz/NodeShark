@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AdBanner from "./AdBanner";
+import AdBanner from "../components/AdBanner";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -26,7 +26,7 @@ const AllProducts = () => {
         </h2>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {products.slice(0, 8).map((product) => (
+          {products.slice(0, 16).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
@@ -34,7 +34,7 @@ const AllProducts = () => {
         <AdBanner />
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {products.slice(8).map((product) => (
+          {products.slice(16).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
