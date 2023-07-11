@@ -2,21 +2,64 @@
 
 NodeShark is a web application created to serve as an online destination for gym apparel. Explore an array of exciting features, including hot new deals, our latest addition to our collection, the ability to curate a personalized wishlist, and much more.
 
+# Team
+
+- Miguel Gonzalez - components, Gallery.jsx, AllProducts.jsx, Womens/mens.jsx, co-op Navbar...
+- Fernando Estrada - backend, Footer.jsx and corresponding pages....
+- Roman Marchen - tailwindcss styling Home.jsx, Hero.jsx/BotHero.jsx, co-op Navbar....
+- Hunter Rawal - SignUp.jsx/Register.jsx, backend User Authentication....
+- Christian Limtiaco - AdBanner.jsx, assets/images for banners....
+
+# Tech stack, PERN stack
+
+- PostreSQL
+- Express
+- React.js
+- Node.js
+- Sequelize as our ORM
+
+Throughout our application, we used [tailwindcss] (https://tailwindcss.com/) to maintain application style consistency.
+We also use DaisyUi, a CSS library extension of Tailwind.
+
 ## Components
 
-- Home
 - Navbar
-- ProductShowCase
 - Footer
-- Hero/banner
-- ? Search
-- Products
-- ProductViewPage
-- ProductDetails
-- Login/Signup
-- WishList
+- Hero
+- Login
+- Register
+- BotHero
+- AdBanner
+- Womens
+- Mens
+- Gallery
 
-#
+# Pages
+
+- AboutUs
+- AllProducts
+- CategoryPages
+- ContactUs
+- Details
+- Home
+- User
+
+# features
+
+- filter products via gender
+- user registry
+- user login
+- product details
+
+Our app features allow users to view products, the ability to filter products by male or female, user registry, and user login.
+
+# Stretch goals
+
+## Apart from the existing features, our stretch goal features are as follow:
+
+- Implement the ability for the user to add products to their personal wishlist
+- Adding a shopping cart
+- Implementing payment methods
 
 ## API Documentation
 
@@ -32,8 +75,6 @@ The following API endpoints are available for interacting with the application:
 | Skus             | ID (Integer), Product_ID (Integer), Color (String), Size (String)                                                      | Tracks SKU information with unique IDs, associated product IDs, color, and size.                                       |
 | Images           | ID (Integer), Product_ID (Integer), Url (String)                                                                       | Stores image details with their unique IDs, associated product IDs, and URLs.                                          |
 
-## Setup
-
 ### Dependencies
 
 - "react": "^18.2.0"
@@ -46,16 +87,8 @@ The following API endpoints are available for interacting with the application:
 - "express": "^4.18.2"
 - "pg": "^8.10.0"
 - "pg-hstore": "^2.3.4"
-- "axios": "^1.3.5"
-
-After forking and cloning this repo, please ensure that you have installed all the dependencies. Navigate into the backend directory and run npm i. Repeat the process for the frontend.
-
-```
-npm i
-```
-
-and finally:
-
-```
-npm start
-```
+- "dotenv": "^16.3.1"
+- "react-responsive-carousel": "^3.2.23"
+- "react-scripts": "^5.0.1"
+- "react-slick": "^0.29.0"
+- "slick-carousel": "^1.8.1"
