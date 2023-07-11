@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CurrentUser from "../contexts/CurrentUser";
+import { CurrentUser } from "../contexts/CurrentUser";
 
 function Login() {
   const navigate = useNavigate();

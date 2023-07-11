@@ -1,8 +1,8 @@
 import { useEffect, createContext, useState } from "react";
 
-const CurrentUser = createContext();
+export const CurrentUser = createContext();
 
-export function CurrentUserProvider({ children }) {
+function CurrentUserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -31,4 +31,4 @@ export function CurrentUserProvider({ children }) {
   );
 }
 
-export default CurrentUser;
+export default CurrentUserProvider;

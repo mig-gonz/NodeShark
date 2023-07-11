@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import CurrentUser from "../contexts/CurrentUser";
+import { CurrentUser } from "../contexts/CurrentUser";
 
 const NavBar = () => {
   const { currentUser } = useContext(CurrentUser);
