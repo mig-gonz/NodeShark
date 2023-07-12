@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const dotenv = require("dotenv");
 const { connectToDB } = require("./database");
 const cors = require("cors");
@@ -10,14 +11,26 @@ const defineCurrentUser = require("./middleware/defineCurrentUser");
 connectToDB();
 
 // Controllers
-
 const productsController = require("./controllers/products_controller");
-const userController = require("./controllers/user_controller");
-const authenticationController = require("./controllers/authentication_controller");
 const wishlistController = require("./controllers/wishlist_controller");
 
 // middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,8 +38,8 @@ app.use(defineCurrentUser);
 
 // Routes
 app.use("/products", productsController);
-app.use("/user", userController);
-app.use("/authentication", authenticationController);
+app.use("/users", require("./controllers/user_controller"));
+app.use("/authentication", require("./controllers/authentication_controller"));
 app.use("/wishlist", wishlistController);
 
 app.get("/", (req, res) => {

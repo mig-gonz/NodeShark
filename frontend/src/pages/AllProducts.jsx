@@ -6,6 +6,7 @@ const AllProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
         const response = await fetch("http://localhost:9000/products");

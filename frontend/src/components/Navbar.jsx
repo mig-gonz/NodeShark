@@ -6,16 +6,22 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { CurrentUser } from "../contexts/CurrentUser";
 
 const NavBar = () => {
-  const { currentUser } = useContext(CurrentUser);
-  function logout() {
-    localStorage.removeItem("token");
-    window.location.reload();
-  }
+  const { currentUser, setCurrentUser, logout } = useContext(CurrentUser);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setCurrentUser(null);
+      Navigate("/user/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   let loginActions = (
     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
@@ -45,7 +51,7 @@ const NavBar = () => {
         <Link
           to="/"
           className="text-sm font-medium text-gray-700 hover:text-gray-800"
-          onClick={() => logout()}
+          onClick={handleLogout}
         >
           Logout
         </Link>

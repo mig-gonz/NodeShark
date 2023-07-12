@@ -1,31 +1,37 @@
-import { useEffect, createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const CurrentUser = createContext();
 
 function CurrentUserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-
   useEffect(() => {
     const getLoggedInUser = async () => {
       let response = await fetch(
         "http://localhost:9000/authentication/profile",
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          credentials: "include",
         }
       );
       let user = await response.json();
-      const setCurrentUser = (user) => {
-        console.log("Setting currentUser:", user);
-        setCurrentUser(user);
-      };
+      setCurrentUser(user);
     };
     getLoggedInUser();
   }, []);
 
+  const logout = async () => {
+    try {
+      await fetch("http://localhost:9000/authentication/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      setCurrentUser(null);
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   return (
-    <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>
+    <CurrentUser.Provider value={{ currentUser, setCurrentUser, logout }}>
       {children}
     </CurrentUser.Provider>
   );

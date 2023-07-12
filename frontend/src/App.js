@@ -16,7 +16,6 @@ import Register from "./components/Register";
 import WishList from "./pages/WishList";
 
 function App() {
-  // mig_app
   return (
     <CurrentUserProvider>
       <Router>

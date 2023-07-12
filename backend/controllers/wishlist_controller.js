@@ -3,17 +3,15 @@
 const express = require("express");
 const wishlist = express.Router();
 const db = require("../models");
-const { WishlistItem } = db; // Update the model name to use correct casing
+const { WishlistItem } = db;
 
 // Add item to wishlist
 wishlist.post("/", async (req, res) => {
   try {
-    const { skuId, userId } = req.body;
+    const { productId, userId } = req.body;
 
-    // Perform the necessary operations to add the item to the wishlist in your database
-    // Replace this code with your actual implementation
     await WishlistItem.create({
-      skuId,
+      productId,
       userId,
     });
 

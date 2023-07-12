@@ -14,40 +14,11 @@ function Login() {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      fetch("http://localhost:9000/authentication/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data && data.user) {
-            setCurrentUser(data.user);
-          } else {
-            localStorage.removeItem("token");
-            setCurrentUser(null);
-          }
-        })
-        .catch((error) => {
-          console.log("Error fetching user profile:", error);
-          setCurrentUser(null);
-        });
-    } else {
-      setCurrentUser(null);
-    }
-  }, [setCurrentUser]);
-
   async function handleSubmit(e) {
     e.preventDefault();
-
-    console.log("Login credentials:", credentials);
-
-    const response = await fetch("http://localhost:9000/authentication/", {
+    const response = await fetch(`http://localhost:9000/authentication/`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -56,17 +27,15 @@ function Login() {
 
     const data = await response.json();
 
-    console.log("Login response data:", data);
-
     if (response.status === 200) {
       setCurrentUser(data.user);
-      localStorage.setItem("token", data.token);
-      console.log("Token added to local storage:", data.token);
-      navigate("/");
+      navigate(`/`);
     } else {
       setErrorMessage(data.message);
     }
   }
+
+  useEffect(() => window.scrollTo(0, 0), []);
 
   return (
     <div>
@@ -98,6 +67,7 @@ function Login() {
                   setCredentials({ ...credentials, email: e.target.value })
                 }
                 required
+                autoComplete="username"
               />
               <label className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">
                 Email Address
@@ -115,6 +85,7 @@ function Login() {
                   setCredentials({ ...credentials, password: e.target.value })
                 }
                 required
+                autoComplete="current-password"
               />
               <label className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">
                 Password
