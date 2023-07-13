@@ -14,7 +14,7 @@ function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await fetch("http://localhost:9000/user/register", {
+    await fetch("http://localhost:9000/users/register", {
       method: "POST",
       mode: "cors",
       headers: {
