@@ -15,14 +15,13 @@ const Details = () => {
   const { id } = useParams();
   const { currentUser } = useContext(CurrentUser);
 
-  // console.log(currentUser);
-
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
         const response = await fetch(`http://localhost:9000/products/${id}`);
         const { data } = await response.json();
+        // console.log(data);
         setProduct(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -31,10 +30,11 @@ const Details = () => {
     fetchProducts();
   }, [id]);
 
+  console.log(id);
+
   if (!product) {
     return <div>Loading...</div>;
   }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (currentUser) {
@@ -46,12 +46,12 @@ const Details = () => {
           },
           body: JSON.stringify({
             productId: id,
+            url: product.Images[0].url,
             userId: currentUser.id,
           }),
         });
 
         if (response.ok) {
-          // Item added to wishlist successfully
           console.log("Item added to wishlist");
         } else {
           console.error("Failed to add item to wishlist");
@@ -63,7 +63,6 @@ const Details = () => {
       console.log("User not logged in");
     }
   };
-
   const login = (
     <div>
       <h2 className="mt-5 mb-5">To add items to your wishlist:</h2>

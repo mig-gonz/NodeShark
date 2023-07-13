@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // wishlist items belong to many users and is referencing user id on the users table
       WishlistItem.belongsTo(models.User, { foreignKey: "userId" });
       WishlistItem.belongsTo(models.Product, { foreignKey: "productId" });
     }
@@ -22,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       productId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      url: {
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       userId: {
