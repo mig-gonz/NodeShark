@@ -61,8 +61,8 @@ const WishList = () => {
 
             return (
               <div key={product.id} className="group flex flex-col">
-                <Link to={`/products/${product.productId}`}>
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                  <Link to={`/products/${product.productId}`}>
                     <img
                       src={product.url}
                       alt={product.imageAlt}
@@ -71,19 +71,19 @@ const WishList = () => {
                       }}
                       className="h-full w-full object-cover object-center group-hover:opacity-75"
                     />
-                  </div>
-                  <div className="flex items-center justify-between w-full mt-4">
-                    <p className="text-lg font-medium text-gray-900">
-                      {product.Product.name}
-                    </p>
-                    <button
-                      onClick={() => handleDelete(product.id)}
-                      className="btn mt-2 text-sm text-red-500"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
+                <div className="flex items-center justify-between w-full mt-4">
+                  <p className="text-lg font-medium text-gray-900">
+                    {product.Product.name}
+                  </p>
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    className="btn mt-2 text-sm text-red-500"
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
             );
           })}
