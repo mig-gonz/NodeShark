@@ -4,11 +4,11 @@ NodeShark is a web application created to serve as an online destination for gym
 
 # Team
 
-- Miguel Gonzalez - components, Gallery.jsx, AllProducts.jsx, Womens/mens.jsx, co-op Navbar...
-- Fernando Estrada - backend, Footer.jsx and corresponding pages....
-- Roman Marchen - tailwindcss styling Home.jsx, Hero.jsx/BotHero.jsx, co-op Navbar....
-- Hunter Rawal - SignUp.jsx/Register.jsx, backend User Authentication....
-- Christian Limtiaco - AdBanner.jsx, assets/images for banners....
+- Miguel Gonzalez 
+- Fernando Estrada 
+- Roman Marchen 
+- Hunter Rawal 
+- Christian Limtiaco
 
 # Tech stack, PERN stack
 
