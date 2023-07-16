@@ -9,6 +9,7 @@ import {
 import { Link, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { CurrentUser } from "../contexts/CurrentUser";
+import logo from "../assets/fitness.png";
 
 const NavBar = () => {
   const { currentUser, setCurrentUser, logout } = useContext(CurrentUser);
@@ -178,11 +179,7 @@ const NavBar = () => {
               <div className="ml-4 flex lg:ml-0">
                 <a href="/">
                   <span className="sr-only">Your Company</span>
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt=""
-                  />
+                  <img className="h-8 w-auto" src={logo} alt="logo" />
                 </a>
               </div>
 
