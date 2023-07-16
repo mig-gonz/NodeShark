@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const ContactUs = () => {
+  useEffect(() => window.scrollTo(0, 0), []);
   return (
     <div className="mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4 bg-white ">
       <div className="flex flex-col lg:flex-row justify-between gap-8">

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import logo from "../assets/fitness.png";
 
 function Register() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await fetch("http://localhost:9000/user/register", {
+    await fetch("http://localhost:9000/users/register", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -26,106 +27,130 @@ function Register() {
     navigate("/user/login");
   }
 
+  useEffect(() => window.scrollTo(0, 0), []);
+
   return (
-    <div>
-      <img
-        className="brand-img"
-        src="https://images.unsplash.com/photo-1610969524113-bae462bb3892?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGF0aGxldGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-        alt="Logo"
-      />
-      <h1 className="block text-3xl font-semibold text-center my-auto form-title ">
-        Create Account
-      </h1>
-      <div className="form-container ">
-        <div className="block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(85,85,85,0.8),0_10px_20px_-2px_rgba(85,85,85,0.8)] dark:bg-neutral-700">
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-4">
-              {/* <!--First name input--> */}
-              <div className="relative mb-6" data-te-input-wrapper-init>
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img className="mx-auto h-10 w-auto" src={logo} alt="logo" />
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          Create Account
+        </h2>
+      </div>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="grid grid-cols-2 gap-4">
+            {/* First name input */}
+            <div>
+              <label
+                htmlFor="firstName"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                First Name
+              </label>
+              <div className="mt-2">
                 <input
+                  id="firstName"
+                  name="firstName"
                   type="text"
+                  autoComplete="given-name"
                   required
                   value={user.firstName}
                   onChange={(e) =>
                     setUser({ ...user, firstName: e.target.value })
                   }
-                  className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                  placeholder="First name"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                <label className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">
-                  First name
-                </label>
               </div>
+            </div>
 
-              {/* <!--Last name input--> */}
-              <div className="relative mb-6" data-te-input-wrapper-init>
+            {/* Last name input */}
+            <div>
+              <label
+                htmlFor="lastName"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Last Name
+              </label>
+              <div className="mt-2">
                 <input
+                  id="lastName"
+                  name="lastName"
                   type="text"
+                  autoComplete="family-name"
                   required
                   value={user.lastName}
                   onChange={(e) =>
                     setUser({ ...user, lastName: e.target.value })
                   }
-                  className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                  placeholder="Last name"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                <label className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">
-                  Last name
-                </label>
               </div>
             </div>
+          </div>
 
-            {/* <!--Email input--> */}
-            <div className="relative mb-6" data-te-input-wrapper-init>
+          {/* Email input */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Email address
+            </label>
+            <div className="mt-2">
               <input
+                id="email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 required
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
-                className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                placeholder="Email address"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
-              <label className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200">
-                Email address
-              </label>
             </div>
+          </div>
 
-            {/* <!--Password input--> */}
-            <div className="relative mb-6" data-te-input-wrapper-init>
+          {/* Password input */}
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Password
+            </label>
+            <div className="mt-2">
               <input
-                type="password"
-                required
-                className="peer form-control block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                placeholder="Password"
-                value={user.password}
-                onChange={(e) => setUser({ ...user, password: e.target.value })}
                 id="password"
                 name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                value={user.password}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
-              <label className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200">
-                Password
-              </label>
             </div>
+          </div>
 
-            {/* Login Link */}
-            <a
-              className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
-              href="/user/login"
-            >
-              Already have an account? Login here.
-            </a>
-
-            {/* <!--Submit button--> */}
+          {/* Sign up button */}
+          <div>
             <button
               type="submit"
-              className="inline-block w-full rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-              data-te-ripple-init
-              data-te-ripple-color="light"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Sign up
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
+
+        <p className="mt-10 text-center text-sm text-gray-500">
+          Already have an account?
+          <Link to="/user/login" className="text-blue-700">
+            Login here.
+          </Link>
+        </p>
       </div>
     </div>
   );

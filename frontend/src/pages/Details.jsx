@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { RadioGroup } from "@headlessui/react";
 import { useContext } from "react";
-import CurrentUser from "../contexts/CurrentUser";
+import { CurrentUser } from "../contexts/CurrentUser";
+import { Link } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,13 +15,13 @@ const Details = () => {
   const { id } = useParams();
   const { currentUser } = useContext(CurrentUser);
 
-  // console.log(currentUser);
-
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
         const response = await fetch(`http://localhost:9000/products/${id}`);
         const { data } = await response.json();
+        // console.log(data);
         setProduct(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -29,33 +30,51 @@ const Details = () => {
     fetchProducts();
   }, [id]);
 
+  console.log(id);
+
   if (!product) {
     return <div>Loading...</div>;
   }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (currentUser) {
+      try {
+        const response = await fetch("http://localhost:9000/wishlist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: id,
+            url: product.Images[0].url,
+            userId: currentUser.id,
+          }),
+        });
 
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch("http://localhost:9000/wishlist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          skuId: product.skuId, // Replace with the actual product SKU
-          userId: currentUser.Id, // Replace with the actual user ID
-        }),
-      });
-
-      if (response.ok) {
-        // Item added to wishlist successfully
-        console.log("Item added to wishlist");
-      } else {
-        console.error("Failed to add item to wishlist");
+        if (response.ok) {
+          console.log("Item added to wishlist");
+          window.my_modal_1.showModal();
+        } else {
+          console.error("Failed to add item to wishlist");
+        }
+      } catch (error) {
+        console.error("Error adding item to wishlist:", error);
       }
-    } catch (error) {
-      console.error("Error adding item to wishlist:", error);
+    } else {
+      console.log("User not logged in");
     }
   };
+  const login = (
+    <div>
+      <h2 className="mt-5 mb-5">To add items to your wishlist:</h2>
+      <Link
+        to="/user/login"
+        className=" flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        Login
+      </Link>
+    </div>
+  );
 
   return (
     <div className="bg-white">
@@ -247,13 +266,27 @@ const Details = () => {
                 </RadioGroup>
               </div>
 
-              <button
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={handleSubmit}
-              >
-                Add to bag
-              </button>
+              {currentUser ? (
+                <button
+                  type="submit"
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  onClick={handleSubmit}
+                >
+                  Add to bag
+                </button>
+              ) : (
+                login
+              )}
+
+              <dialog id="my_modal_1" className="modal">
+                <form method="dialog" className="modal-box">
+                  <h3 className="font-bold text-lg">Item Added!</h3>
+                  <p className="py-4">Item added to your wishlist</p>
+                  <div className="modal-action">
+                    <button className="btn">Close</button>
+                  </div>
+                </form>
+              </dialog>
             </form>
           </div>
 

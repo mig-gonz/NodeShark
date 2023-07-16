@@ -6,6 +6,7 @@ const CategoryPage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
         const response = await fetch(

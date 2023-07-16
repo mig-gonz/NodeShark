@@ -6,16 +6,23 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useContext } from "react";
-import CurrentUser from "../contexts/CurrentUser";
+import { CurrentUser } from "../contexts/CurrentUser";
+import logo from "../assets/fitness.png";
 
 const NavBar = () => {
-  const { currentUser } = useContext(CurrentUser);
-  function logout() {
-    localStorage.removeItem("token");
-    window.location.reload();
-  }
+  const { currentUser, setCurrentUser, logout } = useContext(CurrentUser);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setCurrentUser(null);
+      Navigate("/user/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   let loginActions = (
     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
@@ -45,7 +52,7 @@ const NavBar = () => {
         <Link
           to="/"
           className="text-sm font-medium text-gray-700 hover:text-gray-800"
-          onClick={() => logout()}
+          onClick={handleLogout}
         >
           Logout
         </Link>
@@ -150,7 +157,7 @@ const NavBar = () => {
       <header className="relative bg-white">
         {/* speacial offer */}
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
+          Discover the latest trends in gym gear!
         </p>
 
         <nav
@@ -172,11 +179,7 @@ const NavBar = () => {
               <div className="ml-4 flex lg:ml-0">
                 <a href="/">
                   <span className="sr-only">Your Company</span>
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt=""
-                  />
+                  <img className="h-8 w-auto" src={logo} alt="logo" />
                 </a>
               </div>
 
@@ -227,9 +230,7 @@ const NavBar = () => {
                         className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                        0
-                      </span>
+
                       <span className="sr-only">items in cart, view bag</span>
                     </Link>
                   </div>

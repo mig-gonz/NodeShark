@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class WishlistItem extends Model {
     /**
@@ -8,10 +8,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // wishlist items belong to many users and is referencing user id on the users table
-      WishlistItem.belongsTo(models.User, { foreignKey: 'userId' });
-      // wishlist items belong to many skus and is referencing sku id on the skus table
-      WishlistItem.belongsTo(models.Sku, { foreignKey: 'skuId' });
+      WishlistItem.belongsTo(models.User, { foreignKey: "userId" });
+      WishlistItem.belongsTo(models.Product, { foreignKey: "productId" });
     }
   }
   WishlistItem.init(
@@ -21,8 +19,12 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      skuId: {
+      productId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      url: {
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       userId: {
@@ -32,8 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'WishlistItem',
-      tableName: 'wishlist_items',
+      modelName: "WishlistItem",
+      tableName: "wishlist_items",
       timestamps: false,
     }
   );

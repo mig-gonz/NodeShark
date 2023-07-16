@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { CurrentUserProvider } from "./contexts/CurrentUser";
+import CurrentUserProvider from "./contexts/CurrentUser";
 import Home from "./pages/Home";
 import User from "./pages/User";
 import Footer from "./components/Footer";
@@ -16,7 +16,6 @@ import Register from "./components/Register";
 import WishList from "./pages/WishList";
 
 function App() {
-  // mig_app
   return (
     <CurrentUserProvider>
       <Router>
