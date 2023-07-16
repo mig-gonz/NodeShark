@@ -53,6 +53,7 @@ const Details = () => {
 
         if (response.ok) {
           console.log("Item added to wishlist");
+          window.my_modal_1.showModal();
         } else {
           console.error("Failed to add item to wishlist");
         }
@@ -276,6 +277,16 @@ const Details = () => {
               ) : (
                 login
               )}
+
+              <dialog id="my_modal_1" className="modal">
+                <form method="dialog" className="modal-box">
+                  <h3 className="font-bold text-lg">Item Added!</h3>
+                  <p className="py-4">Item added to your wishlist</p>
+                  <div className="modal-action">
+                    <button className="btn">Close</button>
+                  </div>
+                </form>
+              </dialog>
             </form>
           </div>
 
