@@ -34,6 +34,7 @@ function App() {
           <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/user/wishlist" element={<WishList />} />
         </Routes>
+        <div className="divider w-11/12 m-auto"></div>
         <Footer />
       </Router>
     </CurrentUserProvider>
