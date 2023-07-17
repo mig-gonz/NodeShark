@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import CurrentUserProvider from "./contexts/CurrentUser";
 import Home from "./pages/Home";
 import User from "./pages/User";
@@ -14,10 +15,18 @@ import CategoryPage from "./pages/CategoryPage";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import WishList from "./pages/WishList";
+import Modal from "./components/Modal";
 
 function App() {
+  const [showModal, setShowModal] = useState(true);
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <CurrentUserProvider>
+      {showModal && <Modal closeModal={closeModal} />}
       <Router>
         <Navbar />
         <Routes>
