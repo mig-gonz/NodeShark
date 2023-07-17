@@ -17,10 +17,11 @@ const wishlistController = require("./controllers/wishlist_controller");
 // middleware
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://aws-deployment.d24dzy57n244p8.amplifyapp.com",
     credentials: true,
   })
 );
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

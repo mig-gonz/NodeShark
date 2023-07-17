@@ -70,7 +70,7 @@ const Details = () => {
     <div>
       <h2 className="mt-5 mb-5">To add items to your wishlist:</h2>
       <Link
-        to="/user/login"
+        to="https://aws-deployment.d24dzy57n244p8.amplifyapp.com/user/login"
         className=" flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         Login

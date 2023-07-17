@@ -27,7 +27,7 @@ function Register() {
       }
     );
 
-    navigate("/user/login");
+    navigate("https://aws-deployment.d24dzy57n244p8.amplifyapp.com/user/login");
   }
 
   useEffect(() => window.scrollTo(0, 0), []);

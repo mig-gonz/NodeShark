@@ -33,7 +33,7 @@ function Login() {
 
     if (response.status === 200) {
       setCurrentUser(data.user);
-      navigate(`/`);
+      navigate(`https://aws-deployment.d24dzy57n244p8.amplifyapp.com/`);
     } else {
       setErrorMessage(data.message);
     }

@@ -18,7 +18,9 @@ const NavBar = () => {
     try {
       await logout();
       setCurrentUser(null);
-      Navigate("/user/login");
+      Navigate(
+        "https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/user/login"
+      );
     } catch (error) {
       console.error("Logout failed:", error);
     }
