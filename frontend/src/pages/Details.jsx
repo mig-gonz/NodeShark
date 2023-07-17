@@ -41,17 +41,20 @@ const Details = () => {
     e.preventDefault();
     if (currentUser) {
       try {
-        const response = await fetch("http://localhost:9000/wishlist", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            productId: id,
-            url: product.Images[0].url,
-            userId: currentUser.id,
-          }),
-        });
+        const response = await fetch(
+          "https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/wishlist",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productId: id,
+              url: product.Images[0].url,
+              userId: currentUser.id,
+            }),
+          }
+        );
 
         if (response.ok) {
           console.log("Item added to wishlist");
@@ -70,7 +73,7 @@ const Details = () => {
     <div>
       <h2 className="mt-5 mb-5">To add items to your wishlist:</h2>
       <Link
-        to="https://aws-deployment.d24dzy57n244p8.amplifyapp.com/user/login"
+        to="/user/login"
         className=" flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         Login

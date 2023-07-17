@@ -7,7 +7,7 @@ function CurrentUserProvider({ children }) {
   useEffect(() => {
     const getLoggedInUser = async () => {
       let response = await fetch(
-        "http://localhost:9000/authentication/profile",
+        "https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/authentication/profile",
         {
           credentials: "include",
         }
@@ -20,10 +20,13 @@ function CurrentUserProvider({ children }) {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:9000/authentication/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      await fetch(
+        "https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/authentication/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
       setCurrentUser(null);
     } catch (error) {
       console.error("Logout failed:", error);
