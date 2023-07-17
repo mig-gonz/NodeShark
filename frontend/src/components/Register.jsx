@@ -15,14 +15,17 @@ function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await fetch("http://localhost:9000/users/register", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+    await fetch(
+      "https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/users/register",
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    );
 
     navigate("/user/login");
   }

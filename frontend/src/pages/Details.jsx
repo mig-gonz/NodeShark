@@ -19,7 +19,9 @@ const Details = () => {
     window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:9000/products/${id}`);
+        const response = await fetch(
+          `https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/products/${id}`
+        );
         const { data } = await response.json();
         // console.log(data);
         setProduct(data);

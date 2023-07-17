@@ -1,11 +1,11 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const session = require("express-session");
 const dotenv = require("dotenv");
 const { connectToDB } = require("./database");
 const cors = require("cors");
 dotenv.config();
 const app = express();
-const defineCurrentUser = require("./middleware/defineCurrentUser");
 
 // connect to database
 connectToDB();
@@ -34,7 +34,6 @@ app.use(
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(defineCurrentUser);
 
 // Routes
 app.use("/products", productsController);
@@ -42,7 +41,7 @@ app.use("/users", require("./controllers/user_controller"));
 app.use("/authentication", require("./controllers/authentication_controller"));
 app.use("/wishlist", wishlistController);
 
-app.get("/", (req, res) => {
+app.get("/hello", (req, res) => {
   try {
     res.status(200).send({
       message: "Hello World!",
@@ -60,6 +59,8 @@ app.use("*", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log({ message: `Listening on port: ${process.env.PORT}` });
-});
+// app.listen(process.env.PORT, () => {
+//   console.log({ message: `Listening on port: ${process.env.PORT}` });
+// });
+
+module.exports.handler = serverless(app);
