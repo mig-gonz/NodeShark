@@ -7,7 +7,7 @@ function CurrentUserProvider({ children }) {
   useEffect(() => {
     const getLoggedInUser = async () => {
       let response = await fetch(
-        "https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/authentication/profile",
+        "https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/beta/authentication/profile",
         {
           credentials: "include",
         }
@@ -21,7 +21,7 @@ function CurrentUserProvider({ children }) {
   const logout = async () => {
     try {
       await fetch(
-        "https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/authentication/logout",
+        "https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/beta/authentication/logout",
         {
           method: "POST",
           credentials: "include",

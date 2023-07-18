@@ -20,7 +20,7 @@ const Details = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/products/${id}`
+          `https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/beta/products/${id}`
         );
         const { data } = await response.json();
         // console.log(data);

@@ -30,7 +30,7 @@ const WishList = () => {
   const handleDelete = async (itemId) => {
     try {
       const response = await fetch(
-        `https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/wishlist/${itemId}`,
+        `https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/beta/wishlist/${itemId}`,
         {
           method: "DELETE",
         }
