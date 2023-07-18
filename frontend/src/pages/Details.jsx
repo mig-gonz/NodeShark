@@ -32,8 +32,6 @@ const Details = () => {
     fetchProducts();
   }, [id]);
 
-  console.log(id);
-
   if (!product) {
     return <div>Loading...</div>;
   }

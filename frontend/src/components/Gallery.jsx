@@ -23,7 +23,7 @@ const Gallery = () => {
     fetchProducts();
 
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1027);
+      setIsMobile(window.innerWidth <= 1023);
     };
 
     handleResize();
