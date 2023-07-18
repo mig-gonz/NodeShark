@@ -10,7 +10,7 @@ const CategoryPage = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `https://87wzdbvx3j.execute-api.us-east-1.amazonaws.com/prod/products/categories/${categoryName}`
+          `https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/products/categories/${categoryName}`
         );
         const { data } = await response.json();
         setProducts(data);
