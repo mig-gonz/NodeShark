@@ -20,7 +20,7 @@ const Details = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/beta/products/${id}`
+          `https://87wzdbvx3j.execute-api.us-east-1.amazonaws.com/prod/products/${id}`
         );
         const { data } = await response.json();
         // console.log(data);
@@ -42,7 +42,7 @@ const Details = () => {
     if (currentUser) {
       try {
         const response = await fetch(
-          "https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/wishlist",
+          "https://87wzdbvx3j.execute-api.us-east-1.amazonaws.com/prod/wishlist",
           {
             method: "POST",
             headers: {

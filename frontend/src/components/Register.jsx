@@ -16,7 +16,7 @@ function Register() {
     e.preventDefault();
 
     await fetch(
-      "https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/beta/users/register",
+      "hhttps://87wzdbvx3j.execute-api.us-east-1.amazonaws.com/prod/users/register",
       {
         method: "POST",
         mode: "cors",

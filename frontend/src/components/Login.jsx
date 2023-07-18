@@ -18,7 +18,7 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await fetch(
-      `https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/beta/authentication/`,
+      `https://87wzdbvx3j.execute-api.us-east-1.amazonaws.com/prod/authentication/`,
       {
         method: "POST",
         credentials: "include",
