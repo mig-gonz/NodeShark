@@ -7,7 +7,9 @@ const Mens = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:9000/products");
+        const response = await fetch(
+          "https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/products"
+        );
         const { data } = await response.json();
         setProducts(data);
       } catch (error) {

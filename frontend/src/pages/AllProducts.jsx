@@ -10,7 +10,7 @@ const AllProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/products"
+          "https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/products"
         );
         const { data } = await response.json();
         setProducts(data);

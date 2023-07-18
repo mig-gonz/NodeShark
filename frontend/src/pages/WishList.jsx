@@ -12,7 +12,7 @@ const WishList = () => {
     const fetchItems = async () => {
       try {
         const response = await fetch(
-          `https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/wishlist?userId=${currentUser.id}`
+          `https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/wishlist?userId=${currentUser.id}`
         );
         const data = await response.json();
         // console.log(data.items);
@@ -30,7 +30,7 @@ const WishList = () => {
   const handleDelete = async (itemId) => {
     try {
       const response = await fetch(
-        `https://wolqsu1hrk.execute-api.us-east-1.amazonaws.com/prod/wishlist/${itemId}`,
+        `https://64sgqkiamh.execute-api.us-east-1.amazonaws.com/prod/wishlist/${itemId}`,
         {
           method: "DELETE",
         }

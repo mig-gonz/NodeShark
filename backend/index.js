@@ -4,6 +4,7 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 const { connectToDB } = require("./database");
 const cors = require("cors");
+
 dotenv.config();
 const app = express();
 
@@ -13,16 +14,16 @@ connectToDB();
 // Controllers
 const productsController = require("./controllers/products_controller");
 const wishlistController = require("./controllers/wishlist_controller");
+const authenticationController = require("./controllers/authentication_controller");
 
 // middleware
 app.use(
   cors({
     origin: "https://aws-deployment.d24dzy57n244p8.amplifyapp.com",
     credentials: true,
-  })
-);
-
-app.use(
+  }),
+  express.json(),
+  express.urlencoded({ extended: true }),
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -30,17 +31,15 @@ app.use(
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
     },
-  })
+  }),
+  express.static("public")
 );
-app.use(express.static("public"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/products", productsController);
 app.use("/users", require("./controllers/user_controller"));
-app.use("/authentication", require("./controllers/authentication_controller"));
 app.use("/wishlist", wishlistController);
+app.use("/authentication", authenticationController);
 
 app.get("/hello", (req, res) => {
   try {
@@ -53,15 +52,5 @@ app.get("/hello", (req, res) => {
     });
   }
 });
-
-app.use("*", (req, res) => {
-  res.status(404).send({
-    message: "Not found",
-  });
-});
-
-// app.listen(process.env.PORT, () => {
-//   console.log({ message: `Listening on port: ${process.env.PORT}` });
-// });
 
 module.exports.handler = serverless(app);
