@@ -2,7 +2,7 @@ import React from "react";
 
 const Modal = ({ closeModal }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 w-2/4 m-auto">
+    <div className="fixed inset-0 flex items-center justify-center z-50 w-48 md:w-2/4 lg:w-2/4 m-auto">
       <div className="bg-white p-6 rounded-lg">
         <div className="flex justify-end">
           <button
