@@ -31,10 +31,7 @@ const Modal = ({ closeModal }) => {
         <p className="text-gray-600">
           This website is a portfolio project designed to showcase web design
           and coding abilities. Please refrain from using real email addresses
-          and passwords for testing purposes. In the rare event that the data
-          does not display accurately, simply refresh the page. The server app
-          is hosted on the AWS API Gateway through a standard proxy setting, and
-          it very rarely gives a CORS error.
+          and passwords for testing purposes.
         </p>
       </div>
     </div>
