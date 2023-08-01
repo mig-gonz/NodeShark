@@ -14,7 +14,7 @@ const WishList = () => {
     const fetchItems = async () => {
       try {
         const response = await fetch(
-          `http://localhost:9000/wishlist?userId=${user?.id}`
+          `https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/wishlist?userId=${user?.id}`
         );
         const data = await response.json();
         // console.log(data.items);
