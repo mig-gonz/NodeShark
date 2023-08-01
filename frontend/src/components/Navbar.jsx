@@ -19,11 +19,6 @@ const NavBar = () => {
 
   const { userId } = useAuth();
 
-  // if (user) {
-  //   console.log(userId);
-  //   console.log(user.id);
-  // }
-
   const handleLogout = async () => {
     try {
       await logout();
@@ -52,20 +47,20 @@ const NavBar = () => {
     </div>
   );
 
-  if (currentUser) {
+  if (user) {
     loginActions = (
       <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
         <p className="text-sm font-medium text-gray-700 hover:text-gray-800">
-          Welcome {currentUser.firstName}!
+          Welcome {user.firstName}!
         </p>
         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-        <Link
+        {/* <Link
           to="/"
           className="text-sm font-medium text-gray-700 hover:text-gray-800"
           onClick={handleLogout}
         >
           Logout
-        </Link>
+        </Link> */}
       </div>
     );
   }
@@ -222,8 +217,8 @@ const NavBar = () => {
                 </div>
               </div>
               <div className="ml-auto flex items-center">
-                {user ? <UserButton /> : loginActions}
-
+                {loginActions}
+                <UserButton />
                 {/* Search */}
                 {/* <div className="flex lg:ml-6">
                   <button className="p-2 text-gray-400 hover:text-gray-500">
@@ -234,7 +229,6 @@ const NavBar = () => {
                     />
                   </button>
                 </div> */}
-
                 {/* wishlist */}
                 {user && (
                   <div className="ml-4 flow-root lg:ml-6">

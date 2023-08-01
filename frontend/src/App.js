@@ -35,7 +35,7 @@ function App() {
   return (
     <ClerkProvider publishableKey={clerkPubKey}>
       <CurrentUserProvider>
-        {/* {showModal && <Modal closeModal={closeModal} />} */}
+        {showModal && <Modal closeModal={closeModal} />}
         <Router>
           <Navbar />
           <Routes>

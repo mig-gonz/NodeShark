@@ -25,13 +25,15 @@ const Modal = ({ closeModal }) => {
             </svg>
           </button>
         </div>
-        <h2 className="text-xl font-bold mb-4 text-red-500 underline">
-          Important Notice
+        <h2 className="text-xl font-bold mb-4 text-sky-500 underline">
+          Hi there, and Welcome!
         </h2>
         <p className="text-gray-600">
-          This website is a portfolio project and is meant to showcase web
-          design and coding abilities. Please Refrain from using real email
-          addresses and passwords.
+          User log-in and authentication are securely handled by Clerk, a
+          trusted authentication provider. Your personal information is
+          protected and encrypted to ensure a safe and reliable experience on
+          this website. Enjoy exploring the site with peace of mind, knowing
+          that your data is in good hands with Clerk.
         </p>
       </div>
     </div>

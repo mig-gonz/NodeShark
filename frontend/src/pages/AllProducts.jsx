@@ -31,9 +31,9 @@ const AllProducts = () => {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-
+        <div className="divider w-11/12 m-auto mt-10"></div>
         <AdBanner />
-
+        <div className="divider w-11/12 m-auto mb-10 mt-6"></div>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.slice(16).map((product) => (
             <ProductCard key={product.id} product={product} />
