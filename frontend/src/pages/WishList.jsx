@@ -1,18 +1,20 @@
 import { useState, useEffect, useContext } from "react";
 import { CurrentUser } from "../contexts/CurrentUser";
 import { Link } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 import na from "../assets/na.jpg";
 import "../index.css";
 
 const WishList = () => {
   const [products, setProducts] = useState([]);
   const { currentUser } = useContext(CurrentUser);
+  const { user } = useUser("");
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await fetch(
-          `http://localhost:9000/wishlist?userId=${currentUser.id}`
+          `http://localhost:9000/wishlist?userId=${user.id}`
         );
         const data = await response.json();
         // console.log(data.items);
@@ -51,7 +53,7 @@ const WishList = () => {
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h1 className="text-4xl font-bold text-blue-700 mb-4 text-center uppercase main-title">
-          {`${currentUser.firstName}\`s`} wishlist
+          {`${user?.firstName}\`s`} wishlist
         </h1>
         <h2 className="sr-only">Wish list items</h2>
 
