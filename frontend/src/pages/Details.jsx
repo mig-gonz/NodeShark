@@ -42,17 +42,20 @@ const Details = () => {
     e.preventDefault();
     if (user) {
       try {
-        const response = await fetch("http://localhost:9000/wishlist", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            productId: id,
-            url: product.Images[0].url,
-            userId: user.id,
-          }),
-        });
+        const response = await fetch(
+          "https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/wishlist",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productId: id,
+              url: product.Images[0].url,
+              userId: user.id,
+            }),
+          }
+        );
 
         if (response.ok) {
           console.log("Item added to wishlist");
