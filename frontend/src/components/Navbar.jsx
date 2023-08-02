@@ -10,14 +10,12 @@ import { Link, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { CurrentUser } from "../contexts/CurrentUser";
 import logo from "../assets/fitness.png";
-import { UserButton, useUser, useAuth } from "@clerk/clerk-react";
+import { UserButton, useUser } from "@clerk/clerk-react";
 
 const NavBar = () => {
   const { currentUser, setCurrentUser, logout } = useContext(CurrentUser);
   const [open, setOpen] = useState(false);
   const { user } = useUser();
-
-  // const { userId } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -54,13 +52,6 @@ const NavBar = () => {
           Welcome {user.firstName}!
         </p>
         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-        {/* <Link
-          to="/"
-          className="text-sm font-medium text-gray-700 hover:text-gray-800"
-          onClick={handleLogout}
-        >
-          Logout
-        </Link> */}
       </div>
     );
   }
