@@ -23,7 +23,6 @@ const Details = () => {
       try {
         const response = await fetch(`${URL}products/${id}`);
         const { data } = await response.json();
-        // console.log(data);
         setProduct(data);
       } catch (error) {
         console.error("Error fetching products:", error);
