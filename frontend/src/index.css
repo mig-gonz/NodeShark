@@ -25,7 +25,7 @@ a:hover {
 }
 
 .main-title {
-  font-family: cursive;
+  font-family: "Courier New", Courier, monospace;
   background: -webkit-linear-gradient(
     103.22deg,
     #f10030 -13.86%,
