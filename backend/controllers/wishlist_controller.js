@@ -13,7 +13,7 @@ wishlist.post("/", async (req, res) => {
     const wishlistItem = await WishlistItem.create({
       productId,
       url,
-      userId,
+      userId: userId,
     });
 
     console.log("Item added to wishlist:", wishlistItem); // Log the created item

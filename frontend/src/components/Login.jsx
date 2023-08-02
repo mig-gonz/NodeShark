@@ -17,20 +17,23 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const response = await fetch(`http://localhost:9000/authentication/`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
+    const response = await fetch(
+      `https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/authentication/`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      }
+    );
 
     const data = await response.json();
 
     if (response.status === 200) {
       setCurrentUser(data.user);
-      navigate(`/`);
+      navigate("/");
     } else {
       setErrorMessage(data.message);
     }
@@ -120,7 +123,7 @@ function Login() {
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Not a member?{" "}
+          Not a member?
           <a
             href="#"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"

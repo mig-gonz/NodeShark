@@ -11,7 +11,9 @@ const Gallery = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:9000/products");
+        const response = await fetch(
+          "https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/products"
+        );
         const { data } = await response.json();
         setProducts(data);
       } catch (error) {
@@ -21,7 +23,7 @@ const Gallery = () => {
     fetchProducts();
 
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1027);
+      setIsMobile(window.innerWidth <= 1023);
     };
 
     handleResize();

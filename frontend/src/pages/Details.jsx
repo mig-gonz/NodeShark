@@ -4,6 +4,7 @@ import { RadioGroup } from "@headlessui/react";
 import { useContext } from "react";
 import { CurrentUser } from "../contexts/CurrentUser";
 import { Link } from "react-router-dom";
+import { useAuth, useUser } from "@clerk/clerk-react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,12 +15,16 @@ const Details = () => {
   const [product, setProduct] = useState([]);
   const { id } = useParams();
   const { currentUser } = useContext(CurrentUser);
+  const { userId } = useAuth();
+  const { user } = useUser();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:9000/products/${id}`);
+        const response = await fetch(
+          `https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/products/${id}`
+        );
         const { data } = await response.json();
         // console.log(data);
         setProduct(data);
@@ -30,26 +35,27 @@ const Details = () => {
     fetchProducts();
   }, [id]);
 
-  console.log(id);
-
   if (!product) {
     return <div>Loading...</div>;
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (currentUser) {
+    if (user) {
       try {
-        const response = await fetch("http://localhost:9000/wishlist", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            productId: id,
-            url: product.Images[0].url,
-            userId: currentUser.id,
-          }),
-        });
+        const response = await fetch(
+          "https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/wishlist",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productId: id,
+              url: product.Images[0].url,
+              userId: user.id,
+            }),
+          }
+        );
 
         if (response.ok) {
           console.log("Item added to wishlist");
@@ -75,6 +81,9 @@ const Details = () => {
       </Link>
     </div>
   );
+
+  // console.log("user.id:", user.id);
+  // console.log("typeof user.id:", typeof user.id);
 
   return (
     <div className="bg-white">
@@ -266,7 +275,7 @@ const Details = () => {
                 </RadioGroup>
               </div>
 
-              {currentUser ? (
+              {user ? (
                 <button
                   type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -277,17 +286,16 @@ const Details = () => {
               ) : (
                 login
               )}
-
-              <dialog id="my_modal_1" className="modal">
-                <form method="dialog" className="modal-box">
-                  <h3 className="font-bold text-lg">Item Added!</h3>
-                  <p className="py-4">Item added to your wishlist</p>
-                  <div className="modal-action">
-                    <button className="btn">Close</button>
-                  </div>
-                </form>
-              </dialog>
             </form>
+            <dialog id="my_modal_1" className="modal">
+              <form method="dialog" className="modal-box">
+                <h3 className="font-bold text-lg">Item Added!</h3>
+                <p className="py-4">Item added to your wishlist</p>
+                <div className="modal-action">
+                  <button className="btn">Close</button>
+                </div>
+              </form>
+            </dialog>
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16">

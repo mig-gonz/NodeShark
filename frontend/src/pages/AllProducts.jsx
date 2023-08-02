@@ -9,7 +9,9 @@ const AllProducts = () => {
     window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:9000/products");
+        const response = await fetch(
+          "https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/products"
+        );
         const { data } = await response.json();
         setProducts(data);
       } catch (error) {
@@ -31,9 +33,9 @@ const AllProducts = () => {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-
+        <div className="divider w-11/12 m-auto mt-10"></div>
         <AdBanner />
-
+        <div className="divider w-11/12 m-auto mb-10 mt-6"></div>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.slice(16).map((product) => (
             <ProductCard key={product.id} product={product} />

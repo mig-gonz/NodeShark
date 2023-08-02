@@ -10,9 +10,14 @@ import { Link, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { CurrentUser } from "../contexts/CurrentUser";
 import logo from "../assets/fitness.png";
+import { UserButton, useUser, useAuth } from "@clerk/clerk-react";
 
 const NavBar = () => {
   const { currentUser, setCurrentUser, logout } = useContext(CurrentUser);
+  const [open, setOpen] = useState(false);
+  const { user } = useUser();
+
+  const { userId } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -42,25 +47,23 @@ const NavBar = () => {
     </div>
   );
 
-  if (currentUser) {
+  if (user) {
     loginActions = (
       <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
         <p className="text-sm font-medium text-gray-700 hover:text-gray-800">
-          Welcome {currentUser.firstName}!
+          Welcome {user.firstName}!
         </p>
         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-        <Link
+        {/* <Link
           to="/"
           className="text-sm font-medium text-gray-700 hover:text-gray-800"
           onClick={handleLogout}
         >
           Logout
-        </Link>
+        </Link> */}
       </div>
     );
   }
-
-  const [open, setOpen] = useState(false);
 
   return (
     <div className="bg-white sticky top-0 z-50">
@@ -120,13 +123,19 @@ const NavBar = () => {
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flor-root font-medium text-gray-900">
-                    <Link to="/products/womens">Women</Link>
+                    <Link to="/products/womens" onClick={() => setOpen(false)}>
+                      Women
+                    </Link>
                   </div>
                   <div className="flor-root font-medium text-gray-900">
-                    <Link to="/products/mens">Men</Link>
+                    <Link to="/products/mens" onClick={() => setOpen(false)}>
+                      Men
+                    </Link>
                   </div>
                   <div className="flor-root font-medium text-gray-900">
-                    <Link to="/products/all">Shop All</Link>
+                    <Link to="/products/all" onClick={() => setOpen(false)}>
+                      Shop All
+                    </Link>
                   </div>
                 </div>
 
@@ -135,6 +144,7 @@ const NavBar = () => {
                     <Link
                       to="/user/login"
                       className="-m-2 block p-2 font-medium text-gray-900"
+                      onClick={() => setOpen(false)}
                     >
                       Sign In
                     </Link>
@@ -143,6 +153,7 @@ const NavBar = () => {
                     <Link
                       to="/user/register"
                       className="-m-2 block p-2 font-medium text-gray-900"
+                      onClick={() => setOpen(false)}
                     >
                       Create Account
                     </Link>
@@ -178,7 +189,7 @@ const NavBar = () => {
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
                 <a href="/">
-                  <span className="sr-only">Your Company</span>
+                  <span className="sr-only">Node Shark</span>
                   <img className="h-8 w-auto" src={logo} alt="logo" />
                 </a>
               </div>
@@ -207,9 +218,9 @@ const NavBar = () => {
               </div>
               <div className="ml-auto flex items-center">
                 {loginActions}
-
+                <UserButton />
                 {/* Search */}
-                <div className="flex lg:ml-6">
+                {/* <div className="flex lg:ml-6">
                   <button className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
                     <MagnifyingGlassIcon
@@ -217,10 +228,9 @@ const NavBar = () => {
                       aria-hidden="true"
                     />
                   </button>
-                </div>
-
+                </div> */}
                 {/* wishlist */}
-                {currentUser && (
+                {user && (
                   <div className="ml-4 flow-root lg:ml-6">
                     <Link
                       to="/user/wishlist"
