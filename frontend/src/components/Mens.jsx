@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 
 const Mens = () => {
   const [products, setProducts] = useState([]);
+  const URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          "https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/products"
-        );
+        const response = await fetch(`${URL}products`);
         const { data } = await response.json();
         setProducts(data);
       } catch (error) {

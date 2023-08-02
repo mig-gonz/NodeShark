@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  MagnifyingGlassIcon,
+  // MagnifyingGlassIcon,
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -17,7 +17,7 @@ const NavBar = () => {
   const [open, setOpen] = useState(false);
   const { user } = useUser();
 
-  const { userId } = useAuth();
+  // const { userId } = useAuth();
 
   const handleLogout = async () => {
     try {

@@ -5,6 +5,7 @@ import logo from "../assets/fitness.png";
 
 function Login() {
   const navigate = useNavigate();
+  const URL = process.env.REACT_APP_API_URL;
 
   const { setCurrentUser } = useContext(CurrentUser);
 
@@ -17,17 +18,14 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const response = await fetch(
-      `https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/authentication/`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      }
-    );
+    const response = await fetch(`${URL}authentication/`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
 
     const data = await response.json();
 

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { RadioGroup } from "@headlessui/react";
-import { useContext } from "react";
-import { CurrentUser } from "../contexts/CurrentUser";
+
 import { Link } from "react-router-dom";
-import { useAuth, useUser } from "@clerk/clerk-react";
+import { useUser } from "@clerk/clerk-react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,17 +13,15 @@ const Details = () => {
   const [selectedSize, setSelectedSize] = useState([]);
   const [product, setProduct] = useState([]);
   const { id } = useParams();
-  const { currentUser } = useContext(CurrentUser);
-  const { userId } = useAuth();
   const { user } = useUser();
+
+  const URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          `https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/products/${id}`
-        );
+        const response = await fetch(`${URL}products/${id}`);
         const { data } = await response.json();
         // console.log(data);
         setProduct(data);
@@ -42,20 +39,17 @@ const Details = () => {
     e.preventDefault();
     if (user) {
       try {
-        const response = await fetch(
-          "https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/wishlist",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              productId: id,
-              url: product.Images[0].url,
-              userId: user.id,
-            }),
-          }
-        );
+        const response = await fetch(`${URL}wishlist`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: id,
+            url: product.Images[0].url,
+            userId: user.id,
+          }),
+        });
 
         if (response.ok) {
           console.log("Item added to wishlist");
@@ -81,9 +75,6 @@ const Details = () => {
       </Link>
     </div>
   );
-
-  // console.log("user.id:", user.id);
-  // console.log("typeof user.id:", typeof user.id);
 
   return (
     <div className="bg-white">
@@ -149,11 +140,7 @@ const Details = () => {
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Color</h3>
 
-                <RadioGroup
-                  // value={}
-                  // onChange={}
-                  className="mt-4"
-                >
+                <RadioGroup className="mt-4">
                   <RadioGroup.Label className="sr-only">
                     Choose a color
                   </RadioGroup.Label>
@@ -219,7 +206,6 @@ const Details = () => {
                         <RadioGroup.Option
                           key={sku.size}
                           value={sku.size}
-                          // disabled={!sku.size.inStock}
                           className={({ active }) =>
                             classNames(
                               sku.size

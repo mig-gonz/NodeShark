@@ -4,6 +4,7 @@ import logo from "../assets/fitness.png";
 
 function Register() {
   const navigate = useNavigate();
+  const URL = process.env.REACT_APP_API_URL;
 
   const [user, setUser] = useState({
     firstName: "",
@@ -15,17 +16,14 @@ function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await fetch(
-      "https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/users/register",
-      {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }
-    );
+    await fetch(`${URL}users/register`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
 
     navigate("/user/login");
   }

@@ -12,11 +12,9 @@ import AllProducts from "./pages/AllProducts";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import CategoryPage from "./pages/CategoryPage";
-import Login from "./components/Login";
-// import Register from "./components/Register";
 import WishList from "./pages/WishList";
 import Modal from "./components/Modal";
-import { ClerkProvider, SignUp, SignIn } from "@clerk/clerk-react";
+import { ClerkProvider } from "@clerk/clerk-react";
 import LogIn from "./pages/ClerkSignIn";
 import Register from "./pages/ClerkSignUp";
 
@@ -43,9 +41,7 @@ function App() {
             <Route path="/products/:id" element={<Details />} />
             <Route path="/user" element={<User />} />
             <Route path="/user/login" element={<LogIn />} />
-            {/* <Route path="/user/login" element={<Login />} /> */}
             <Route path="/user/register" element={<Register />} />
-            {/* <Route path="/user/register" element={<Register />} /> */}
             <Route path="/products/mens" element={<Mens />} />
             <Route path="/products/womens" element={<Womens />} />
             <Route path="/products/all" element={<AllProducts />} />

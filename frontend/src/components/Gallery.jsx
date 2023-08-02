@@ -7,13 +7,12 @@ const Gallery = () => {
   const [products, setProducts] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          "https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/products"
-        );
+        const response = await fetch(`${URL}products`);
         const { data } = await response.json();
         setProducts(data);
       } catch (error) {

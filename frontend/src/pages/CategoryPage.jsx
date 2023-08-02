@@ -5,12 +5,14 @@ const CategoryPage = () => {
   const { categoryName } = useParams();
   const [products, setProducts] = useState([]);
 
+  const URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `https://3dhufpa4lk.execute-api.us-east-1.amazonaws.com/prod/products/categories/${categoryName}`
+          `${URL}products/categories/${categoryName}`
         );
         const { data } = await response.json();
         setProducts(data);
